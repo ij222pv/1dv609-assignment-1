@@ -3,6 +3,7 @@ import GameController from "../../src/controller/GameController";
 import UI from "../../src/view/UI";
 import Dice from "../../src/model/Dice";
 import GameModel from "../../src/model/GameModel";
+import RandomProvider from "../../src/model/RandomProvider";
 
 class FakeUI implements UI {
   private listeners: { eventName: string; callback: Function }[] = [];
@@ -47,5 +48,12 @@ describe("GameController", () => {
     view.callRollListeners();
 
     expect(model.rollDice).toHaveBeenCalled();
+  });
+
+  test("should bind the correct this context for model.rollDice", () => {
+    // Simulate the roll event being triggered
+    view.callRollListeners();
+
+    expect(model.rollDice.mock.contexts).toContain(model);
   });
 });
