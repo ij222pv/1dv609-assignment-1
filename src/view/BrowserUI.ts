@@ -8,6 +8,7 @@ type Listener = {
 export default class BrowserUI implements UI {
   private gameContainer: HTMLElement;
   private listeners: Listener[] = [];
+  private static readonly DICE_IMAGE_PATH = "images/dice{value}.png";
 
   public constructor(gameContainer: HTMLElement) {
     this.gameContainer = gameContainer;
@@ -42,6 +43,7 @@ export default class BrowserUI implements UI {
   public showDice(value: number) {
     const diceImage = document.createElement("img");
     diceImage.setAttribute("class", "dice");
+    diceImage.setAttribute("src", BrowserUI.DICE_IMAGE_PATH.replace("{value}", value.toString()));
     this.gameContainer.appendChild(diceImage);
   }
 }
