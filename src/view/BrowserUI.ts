@@ -13,10 +13,14 @@ export default class BrowserUI implements UI {
   }
 
   private initGameContainer(gameContainer: HTMLElement) {
+    gameContainer.appendChild(this.createRollButton());
+  }
+
+  private createRollButton(): HTMLElement {
     const rollButton = document.createElement("button");
     rollButton.setAttribute("id", "roll-button");
     rollButton.addEventListener("click", this.callListener.bind(this, "roll"));
-    gameContainer.appendChild(rollButton);
+    return rollButton;
   }
   
   public addListener(eventName: string, callback: Function) {
