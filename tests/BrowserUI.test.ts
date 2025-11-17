@@ -2,14 +2,20 @@
  * @jest-environment jsdom
  */
 
-import { describe, expect, jest, test } from "@jest/globals";
+import { beforeEach, describe, expect, jest, test } from "@jest/globals";
 import BrowserUI from "../src/view/BrowserUI";
 import Dice from "../src/Dice";
 
 describe("BrowserUI", () => {
+  let gameDiv: HTMLElement;
+  let ui: BrowserUI;
+
+  beforeEach(() => {
+    gameDiv = document.createElement("div");
+    ui = new BrowserUI(gameDiv);
+  });
+
   test('should call callback when clicking roll button', () => {
-    const gameDiv = document.createElement("div");
-    const ui = new BrowserUI(gameDiv);
     const mockCallback = jest.fn();
 
     ui.addListener("roll", mockCallback);
@@ -19,24 +25,17 @@ describe("BrowserUI", () => {
   });
 
   test('should show dice', () => {
-    const gameDiv = document.createElement("div");
-    const ui = new BrowserUI(gameDiv);
-    const dice = new Dice({ getRandomIntegerInRange: () => 1 });
-
-    dice.roll();
-    ui.showDice(dice);
-
+    showDiceWithValue(1);
     expect(gameDiv.querySelectorAll("img[class='dice']").length).toBe(1);
   });
 
   test('should show correct image for dice value', () => {
-    const gameDiv = document.createElement("div");
-    const ui = new BrowserUI(gameDiv);
-    const dice = new Dice({ getRandomIntegerInRange: () => 4 });
-
-    dice.roll();
-    ui.showDice(dice);
-
+    showDiceWithValue(4);
     expect(gameDiv.querySelector(`img[src='images/dice4.png']`)).not.toBeNull();
   });
+
+  function showDiceWithValue(value: number): void {
+    const dice = new Dice({ getRandomIntegerInRange: () => value });
+    ui.showDice(dice);
+  }
 });
