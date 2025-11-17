@@ -47,24 +47,23 @@ describe("GameController", () => {
     expect(view.addListener).toHaveBeenCalledWith("roll", expect.any(Function));
   });
 
-  test("should call model.rollDice when roll event is triggered", () => {
-    // Simulate the roll event being triggered
-    view.callRollListeners();
+  describe("roll event", () => {
+    beforeEach(() => {
+      // Simulate the roll event being triggered
+      view.callRollListeners();
+    });
 
-    expect(model.rollDice).toHaveBeenCalled();
-  });
+    test("should call model.rollDice when roll event is triggered", () => {
+      expect(model.rollDice).toHaveBeenCalled();
+    });
 
-  test("should bind the correct this context for model.rollDice", () => {
-    // Simulate the roll event being triggered
-    view.callRollListeners();
+    test("should bind the correct this context for model.rollDice", () => {
+      expect(model.rollDice.mock.contexts).toContain(model);
+    });
 
-    expect(model.rollDice.mock.contexts).toContain(model);
-  });
-
-  test("should call UI.showDice with the Dice returned from model.rollDice", () => {
-    view.callRollListeners();
-
-    const returnedDice: Dice = model.rollDice.mock.results[0].value;
-    expect(view.showDice).toHaveBeenCalledWith(returnedDice);
+    test("should call UI.showDice with the Dice returned from model.rollDice", () => {
+      const returnedDice = model.rollDice.mock.results[0].value as Dice;
+      expect(view.showDice).toHaveBeenCalledWith(returnedDice);
+    });
   });
 });
