@@ -47,4 +47,14 @@ describe("BrowserUI", () => {
     const dice = new Dice({ getRandomIntegerInRange: () => value });
     ui.showDice(dice);
   }
+
+  test("should not call listener for different event", () => {
+    const mockCallback = jest.fn();
+
+    ui.addListener("someOtherEvent", mockCallback);
+    // This will trigger the "roll" event
+    gameDiv.querySelector("#roll-button")?.dispatchEvent(new MouseEvent("click"));
+
+    expect(mockCallback).not.toHaveBeenCalled();
+  });
 });
