@@ -6,14 +6,16 @@ type Listener = {
 }
 
 export default class BrowserUI implements UI {
+  private gameContainer: HTMLElement;
   private listeners: Listener[] = [];
 
   public constructor(gameContainer: HTMLElement) {
-    this.initGameContainer(gameContainer);
+    this.gameContainer = gameContainer;
+    this.initGameContainer();
   }
 
-  private initGameContainer(gameContainer: HTMLElement) {
-    gameContainer.appendChild(this.createRollButton());
+  private initGameContainer() {
+    this.gameContainer.appendChild(this.createRollButton());
   }
 
   private createRollButton(): HTMLElement {
@@ -35,5 +37,11 @@ export default class BrowserUI implements UI {
   
   public addListener(eventName: string, callback: Function) {
     this.listeners.push({eventName, callback});
+  }
+
+  public showDice(value: number) {
+    const diceImage = document.createElement("img");
+    diceImage.setAttribute("class", "dice");
+    this.gameContainer.appendChild(diceImage);
   }
 }
