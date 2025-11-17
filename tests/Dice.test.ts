@@ -1,18 +1,9 @@
-import { describe, test, expect } from "@jest/globals";
+import { describe, test, expect, jest } from "@jest/globals";
 import Dice from "../src/Dice";
 import RandomProvider from "../src/RandomProvider";
 
 class FakeRandomProvider implements RandomProvider {
-  private hasBeenCalled = false;
-
-  public getRandomIntegerInRange(min: number, max: number): number {
-    this.hasBeenCalled = true;
-    return 3;
-  }
-
-  public verify(): void {
-    expect(this.hasBeenCalled).toBeTruthy();
-  }
+  public getRandomIntegerInRange = jest.fn((min, max) => 3);
 }
 
 describe("Dice", () => {
@@ -20,7 +11,7 @@ describe("Dice", () => {
     const fakeRandomProvider = new FakeRandomProvider();
     const die = new Dice(fakeRandomProvider);
     die.roll();
-    fakeRandomProvider.verify();
+    expect(fakeRandomProvider.getRandomIntegerInRange).toHaveBeenCalled();
   });
 
   test("should return correct random number", () => {
