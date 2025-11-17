@@ -10,5 +10,12 @@ describe("StandardRandomProvider", () => {
       const returnValue = randomProvider.getRandomIntegerInRange(1, 5);
       expect(typeof returnValue).toBe("number");
     });
+
+    test("should throw an exception", () => {
+      const randomProvider = new StandardRandomProvider();
+      expect(() => {
+        randomProvider.getRandomIntegerInRange(2, 1);
+      }).toThrow();
+    });
   });
 });
