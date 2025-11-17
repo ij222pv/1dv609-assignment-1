@@ -20,4 +20,10 @@ describe("Dice", () => {
     die.roll();
     expect(die.getValue()).toBe(3);
   });
+
+  test("should have a value even before rolling", () => {
+    const fakeRandomProvider = new FakeRandomProvider();
+    const die = new Dice(fakeRandomProvider);
+    expect(die.getValue()).toBeDefined();
+  });
 });
