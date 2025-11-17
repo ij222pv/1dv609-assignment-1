@@ -1,0 +1,18 @@
+{
+  "name": "assignment_1",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "test": "jest"
+  },
+  "devDependencies": {
+    "@jest/globals": "^30.2.0",
+    "ts-jest": "^29.4.5",
+    "typescript": "~5.9.3",
+    "vite": "^7.2.2"
+  }
+}
