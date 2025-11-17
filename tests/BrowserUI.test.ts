@@ -24,6 +24,11 @@ describe("BrowserUI", () => {
 
       expect(mockCallback).toHaveBeenCalled();
     });
+
+    test('should contain a text', () => {
+      const rollButton = gameDiv.querySelector("#roll-button");
+      expect(rollButton?.textContent).not.toBe("");
+    })
   });
 
   describe("showDice", () => {
