@@ -22,5 +22,5 @@ describe("Dice", () => {
     const die = new Dice(fakeRandomProvider);
     die.roll();
     expect(die.getValue()).toBe(3);
-  })
+  });
 });
