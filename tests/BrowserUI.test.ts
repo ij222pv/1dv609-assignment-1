@@ -16,4 +16,13 @@ describe("BrowserUI", () => {
 
     expect(mockCallback).toHaveBeenCalled();
   });
+
+  test('should show dice', () => {
+    const gameDiv = document.createElement("div");
+    const ui = new BrowserUI(gameDiv);
+
+    ui.showDice(1);
+
+    expect(gameDiv.querySelectorAll("img[class='dice']").length).toBe(1);
+  });
 });

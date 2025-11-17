@@ -8,7 +8,7 @@ type Listener = {
 export default class BrowserUI implements UI {
   private listeners: Listener[] = [];
 
-  constructor(gameContainer: HTMLElement) {
+  public constructor(gameContainer: HTMLElement) {
     this.initGameContainer(gameContainer);
   }
 
@@ -22,12 +22,8 @@ export default class BrowserUI implements UI {
     rollButton.addEventListener("click", this.callListener.bind(this, "roll"));
     return rollButton;
   }
-  
-  public addListener(eventName: string, callback: Function) {
-    this.listeners.push({eventName, callback});
-  }
 
-  public callListener(eventName: string) {
+  private callListener(eventName: string) {
     for (const listener of this.listeners) {
       if (listener.eventName !== eventName) {
         return;
@@ -35,5 +31,9 @@ export default class BrowserUI implements UI {
 
       listener.callback();
     }
+  }
+  
+  public addListener(eventName: string, callback: Function) {
+    this.listeners.push({eventName, callback});
   }
 }
