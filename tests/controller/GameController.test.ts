@@ -26,22 +26,23 @@ class MockGameModel implements GameModel {
 }
 
 describe("GameController", () => {
-  test("should add roll listener", () => {
-    const model = new MockGameModel();
-    const view = new FakeUI();
-    const controller = new GameController(model, view);
+  let model: MockGameModel;
+  let view: FakeUI;
+  let controller: GameController;
+  
+  beforeEach(() => {
+    model = new MockGameModel();
+    view = new FakeUI();
+    controller = new GameController(model, view);
 
     controller.start();
+  });
 
+  test("should add roll listener", () => {
     expect(view.addListener).toHaveBeenCalledWith("roll", expect.any(Function));
   });
 
   test("should call model.rollDice when roll event is triggered", () => {
-    const model = new MockGameModel();
-    const view = new FakeUI();
-    const controller = new GameController(model, view);
-
-    controller.start();
     // Simulate the roll event being triggered
     view.callRollListeners();
 
