@@ -23,7 +23,11 @@ class FakeUI implements UI {
 }
 
 class MockGameModel implements GameModel {
-  rollDice = jest.fn((): Dice => new Dice({ getRandomIntegerInRange: (min: number, max: number): number => 1 }));
+  rollDice = jest.fn((): Dice => {
+    return new Dice({
+      getRandomIntegerInRange: (min: number, max: number): number => 1,
+    });
+  });
 }
 
 describe("GameController", () => {
