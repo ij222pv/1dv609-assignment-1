@@ -60,4 +60,11 @@ describe("GameController", () => {
 
     expect(model.rollDice.mock.contexts).toContain(model);
   });
+
+  test("should call UI.showDice with the Dice returned from model.rollDice", () => {
+    view.callRollListeners();
+
+    const returnedDice: Dice = model.rollDice.mock.results[0].value;
+    expect(view.showDice).toHaveBeenCalledWith(returnedDice);
+  });
 });
