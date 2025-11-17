@@ -1,6 +1,6 @@
 import { describe, test, expect, jest } from "@jest/globals";
-import Dice from "../src/Dice";
-import RandomProvider from "../src/RandomProvider";
+import Dice from "../src/model/Dice";
+import RandomProvider from "../src/model/RandomProvider";
 
 class FakeRandomProvider implements RandomProvider {
   public getRandomIntegerInRange = jest.fn((min, max) => 3);

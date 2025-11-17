@@ -1,4 +1,4 @@
-import Dice from "../Dice";
+import Dice from "../model/Dice";
 import UI from "./UI";
 
 type Listener = {
