@@ -1,3 +1,4 @@
+import Dice from "../Dice";
 import UI from "./UI";
 
 type Listener = {
@@ -40,10 +41,10 @@ export default class BrowserUI implements UI {
     this.listeners.push({eventName, callback});
   }
 
-  public showDice(value: number) {
+  public showDice(dice: Dice) {
     const diceImage = document.createElement("img");
     diceImage.setAttribute("class", "dice");
-    diceImage.setAttribute("src", BrowserUI.DICE_IMAGE_PATH.replace("{value}", value.toString()));
+    diceImage.setAttribute("src", BrowserUI.DICE_IMAGE_PATH.replace("{value}", dice.getValue().toString()));
     this.gameContainer.appendChild(diceImage);
   }
 }
