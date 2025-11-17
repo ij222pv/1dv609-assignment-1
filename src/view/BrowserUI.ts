@@ -22,6 +22,7 @@ export default class BrowserUI implements UI {
 
   private createRollButton(): HTMLElement {
     const rollButton = document.createElement("button");
+    rollButton.textContent = "Roll dice!";
     rollButton.setAttribute("id", "roll-button");
     rollButton.addEventListener("click", this.callListener.bind(this, "roll"));
     return rollButton;
