@@ -6,6 +6,7 @@ export default class Dice {
 
   public constructor(randomProvider: RandomProvider) {
     this.randomProvider = randomProvider;
+    this.roll();
   }
 
   public roll(): void {
