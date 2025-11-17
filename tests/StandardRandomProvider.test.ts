@@ -16,12 +16,12 @@ describe("StandardRandomProvider", () => {
       expect(typeof returnValue).toBe("number");
     });
 
-    test("should return -1", () => {
+    test("should return -1 when min and max are also -1", () => {
       const returnValue = randomProvider.getRandomIntegerInRange(-1, -1);
       expect(returnValue).toBe(-1);
     });
 
-    test("should throw an exception", () => {
+    test("should throw an exception when min greater than max", () => {
       expect(() => {
         randomProvider.getRandomIntegerInRange(2, 1);
       }).toThrow();

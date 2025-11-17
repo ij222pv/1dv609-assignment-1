@@ -7,21 +7,21 @@ class FakeRandomProvider implements RandomProvider {
 }
 
 describe("Dice", () => {
-  test("should call random provider", () => {
+  test("should call random provider on roll", () => {
     const fakeRandomProvider = new FakeRandomProvider();
     const die = new Dice(fakeRandomProvider);
     die.roll();
     expect(fakeRandomProvider.getRandomIntegerInRange).toHaveBeenCalled();
   });
 
-  test("should return correct random number", () => {
+  test("should return number retrieved from injected RandomProvider", () => {
     const fakeRandomProvider = new FakeRandomProvider();
     const die = new Dice(fakeRandomProvider);
     die.roll();
     expect(die.getValue()).toBe(3);
   });
 
-  test("should have a value even before rolling", () => {
+  test("should have a value before rolling", () => {
     const fakeRandomProvider = new FakeRandomProvider();
     const die = new Dice(fakeRandomProvider);
     expect(die.getValue()).toBeDefined();

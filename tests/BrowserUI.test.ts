@@ -15,23 +15,27 @@ describe("BrowserUI", () => {
     ui = new BrowserUI(gameDiv);
   });
 
-  test('should call callback when clicking roll button', () => {
-    const mockCallback = jest.fn();
+  describe("roll button", () => {
+    test('should call callback when clicking roll button', () => {
+      const mockCallback = jest.fn();
 
-    ui.addListener("roll", mockCallback);
-    gameDiv.querySelector("#roll-button")?.dispatchEvent(new MouseEvent("click"));
+      ui.addListener("roll", mockCallback);
+      gameDiv.querySelector("#roll-button")?.dispatchEvent(new MouseEvent("click"));
 
-    expect(mockCallback).toHaveBeenCalled();
+      expect(mockCallback).toHaveBeenCalled();
+    });
   });
 
-  test('should show dice', () => {
-    showDiceWithValue(1);
-    expect(gameDiv.querySelectorAll("img[class='dice']").length).toBe(1);
-  });
+  describe("showDice", () => {
+    test('should show image with "dice" class', () => {
+      showDiceWithValue(1);
+      expect(gameDiv.querySelectorAll("img[class='dice']").length).toBe(1);
+    });
 
-  test('should show correct image for dice value', () => {
-    showDiceWithValue(4);
-    expect(gameDiv.querySelector(`img[src='images/dice4.png']`)).not.toBeNull();
+    test('should show correct image for dice value', () => {
+      showDiceWithValue(4);
+      expect(gameDiv.querySelector(`img[src='images/dice4.png']`)).not.toBeNull();
+    });
   });
 
   function showDiceWithValue(value: number): void {
