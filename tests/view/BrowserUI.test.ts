@@ -3,8 +3,8 @@
  */
 
 import { beforeEach, describe, expect, jest, test } from "@jest/globals";
-import BrowserUI from "../src/view/BrowserUI";
-import Dice from "../src/model/Dice";
+import BrowserUI from "../../src/view/BrowserUI";
+import Dice from "../../src/model/Dice";
 
 describe("BrowserUI", () => {
   let gameDiv: HTMLElement;

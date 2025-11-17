@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, test } from "@jest/globals";
-import StandardRandomProvider from "../src/model/StandardRandomProvider";
+import StandardRandomProvider from "../../src/model/StandardRandomProvider";
 
 describe("StandardRandomProvider", () => {
   let randomProvider: StandardRandomProvider;
