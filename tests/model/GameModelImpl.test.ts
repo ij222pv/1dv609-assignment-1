@@ -54,5 +54,18 @@ describe("GameModelImpl", () => {
       const activePlayerAfter = gameModel.getActivePlayer();
       expect(activePlayerBefore).not.toBe(activePlayerAfter);
     });
+
+    test("should change active player every time when 1 is rolled multiple times in a row", () => {
+      let lastActivePlayer = gameModel.getActivePlayer();
+
+      for (let i = 0; i < 10; i++) {
+        // Roll a 1
+        gameModel.rollDice();
+        const currentActivePlayer = gameModel.getActivePlayer();
+
+        expect(currentActivePlayer).not.toBe(lastActivePlayer);
+        lastActivePlayer = currentActivePlayer;
+      }
+    });
   });
 });
