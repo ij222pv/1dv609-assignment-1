@@ -64,6 +64,16 @@ describe("GameModelImpl", () => {
       gameModel.getActivePlayer();
     }).toThrow();
   });
+
+  test("should not change active player when there is only one player", () => {
+    gameModel = createMockedGameModel([1], [new Player("Solo")]);
+    const activePlayerBefore = gameModel.getActivePlayer();
+
+    // Roll a 1
+    gameModel.rollDice();
+
+    expect(gameModel.getActivePlayer()).toBe(activePlayerBefore);
+  });
 });
 
 function createMockedGameModel(diceResults: number[], players?: Player[]): GameModel {
