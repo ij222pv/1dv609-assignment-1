@@ -5,12 +5,14 @@ import type Player from "./Player";
 
 export default class GameModelImpl implements GameModel {
   private players: Player[] = [];
+  private activePlayerIndex: number = 0;
 
   public constructor(private diceFactory: DiceFactory) {}
 
   public rollDice(): Dice {
     const dice = this.diceFactory.createDice();
     dice.roll();
+    this.activePlayerIndex = 1;
     return dice;
   }
 
@@ -23,6 +25,6 @@ export default class GameModelImpl implements GameModel {
   }
 
   public getActivePlayer(): Player {
-    return this.players[0];
+    return this.players[this.activePlayerIndex];
   }
 }
