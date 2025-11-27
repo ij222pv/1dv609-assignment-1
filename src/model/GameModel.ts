@@ -6,4 +6,5 @@ export default interface GameModel {
   addPlayer(player: Player): void;
   getPlayers(): Player[];
   getActivePlayer(): Player;
+  endTurn(): void;
 }

@@ -6,6 +6,7 @@ import type Player from "./Player";
 export default class GameModelImpl implements GameModel {
   private players: Player[] = [];
   private activePlayerIndex: number = 0;
+  private diceOnTable: Dice[] = [];
 
   public constructor(private diceFactory: DiceFactory) {}
 
@@ -17,6 +18,8 @@ export default class GameModelImpl implements GameModel {
   }
 
   private handleRoll(dice: Dice): void {
+    this.diceOnTable.push(dice);
+
     this.activePlayerIndex++;
     this.activePlayerIndex %= this.players.length;
   }
@@ -35,5 +38,10 @@ export default class GameModelImpl implements GameModel {
     }
 
     return this.players[this.activePlayerIndex];
+  }
+
+  public endTurn(): void {
+    const activePlayer = this.getActivePlayer();
+    activePlayer.addScore(this.diceOnTable.reduce((sum, dice) => sum + dice.getValue(), 0));
   }
 }
