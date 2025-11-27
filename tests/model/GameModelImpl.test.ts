@@ -87,6 +87,17 @@ describe("GameModelImpl", () => {
     // We expect that all three players have been active at least once after three rounds.
     expect(new Set(listOfActivePlayerEachRound).size).toBe(3);
   });
+
+  test("should add the sum of the dice rolls this turn to the player's score", () => {
+    gameModel = createMockedGameModel([2, 4], [new Player("Player1"), new Player("Player2")]);
+    const activePlayerBefore = gameModel.getActivePlayer();
+
+    gameModel.rollDice();
+    gameModel.rollDice();
+    gameModel.endTurn();
+
+    expect(activePlayerBefore.getScore()).toBe(6);
+  });
 });
 
 function createMockedGameModel(diceResults: number[], players?: Player[]): GameModel {
