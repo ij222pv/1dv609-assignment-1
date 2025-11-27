@@ -74,6 +74,19 @@ describe("GameModelImpl", () => {
 
     expect(gameModel.getActivePlayer()).toBe(activePlayerBefore);
   });
+
+  test("should change active player when a 1 is rolled and there are three players", () => {
+    gameModel = createMockedGameModel([1], [new Player("Player1"), new Player("Player2"), new Player("Player3")]);
+    const listOfActivePlayerEachRound: Player[] = [];
+
+    for (let i = 0; i < 3; i++) {
+      gameModel.rollDice();
+      listOfActivePlayerEachRound.push(gameModel.getActivePlayer());
+    }
+
+    // We expect that all three players have been active at least once after three rounds.
+    expect(new Set(listOfActivePlayerEachRound).size).toBe(3);
+  });
 });
 
 function createMockedGameModel(diceResults: number[], players?: Player[]): GameModel {
