@@ -42,6 +42,11 @@ export default class GameModelImpl implements GameModel {
 
   public endTurn(): void {
     const activePlayer = this.getActivePlayer();
-    activePlayer.addScore(this.diceOnTable.reduce((sum, dice) => sum + dice.getValue(), 0));
+    const score = this.calculateTurnScore();
+    activePlayer.addScore(score);
+  }
+  
+  private calculateTurnScore(): number {
+    return this.diceOnTable.reduce((sum, dice) => sum + dice.getValue(), 0);
   }
 }
