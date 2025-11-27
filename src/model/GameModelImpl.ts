@@ -20,8 +20,10 @@ export default class GameModelImpl implements GameModel {
   private handleRoll(dice: Dice): void {
     this.diceOnTable.push(dice);
 
-    this.activePlayerIndex++;
-    this.activePlayerIndex %= this.players.length;
+    if (dice.getValue() === 1) {
+      this.activePlayerIndex++;
+      this.activePlayerIndex %= this.players.length;
+    }
   }
 
   public addPlayer(player: Player): void {
