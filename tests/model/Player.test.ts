@@ -17,4 +17,12 @@ describe("Player", () => {
 
     expect(sut).toThrow();
   });
+
+  test("should throw error if name contains only whitespaces", () => {
+    const name = " \t\v\f\n\r";
+
+    const sut = () => new Player(name);
+
+    expect(sut).toThrow();
+  });
 });
