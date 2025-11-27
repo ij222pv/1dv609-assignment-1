@@ -24,4 +24,15 @@ describe("GameModelImpl", () => {
 
     expect(gameModel.getPlayers()[0]).toBe(player);
   });
+
+  test("should return a player who is playing the game", () => {
+    const bob = new Player("Bob");
+    const alice = new Player("Alice");
+    gameModel.addPlayer(bob);
+    gameModel.addPlayer(alice);
+
+    const activePlayer = gameModel.getActivePlayer();
+
+    expect([bob, alice]).toContain(activePlayer);
+  });
 });
