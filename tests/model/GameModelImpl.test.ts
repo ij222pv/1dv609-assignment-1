@@ -25,31 +25,34 @@ describe("GameModelImpl", () => {
     expect(gameModel.getPlayers()[0]).toBe(player);
   });
 
-  test("should return a player who is playing the game", () => {
-    const bob = new Player("Bob");
-    const alice = new Player("Alice");
-    gameModel.addPlayer(bob);
-    gameModel.addPlayer(alice);
+  describe("active player", () => {
+    let bob: Player;
+    let alice: Player;
 
-    const activePlayer = gameModel.getActivePlayer();
+    beforeEach(() => {
+      gameModel = new GameModelImpl(new D6DiceFactory({
+        getRandomIntegerInRange: (min: number, max: number): number => 1,
+      }));
+      bob = new Player("Bob");
+      alice = new Player("Alice");
+      gameModel.addPlayer(bob);
+      gameModel.addPlayer(alice);
+    });
 
-    expect([bob, alice]).toContain(activePlayer);
-  });
+    test("should return a player who is playing the game", () => {
+      const activePlayer = gameModel.getActivePlayer();
 
-  test("should change active player when 1 is rolled", () => {
-    gameModel = new GameModelImpl(new D6DiceFactory({
-      getRandomIntegerInRange: (min: number, max: number): number => 1,
-    }));
-    const bob = new Player("Bob");
-    const alice = new Player("Alice");
-    gameModel.addPlayer(bob);
-    gameModel.addPlayer(alice);
-    const activePlayerBefore = gameModel.getActivePlayer();
+      expect([bob, alice]).toContain(activePlayer);
+    });
 
-    // Roll a 1
-    gameModel.rollDice();
+    test("should change active player when 1 is rolled", () => {
+      const activePlayerBefore = gameModel.getActivePlayer();
 
-    const activePlayerAfter = gameModel.getActivePlayer();
-    expect(activePlayerBefore).not.toBe(activePlayerAfter);
+      // Roll a 1
+      gameModel.rollDice();
+
+      const activePlayerAfter = gameModel.getActivePlayer();
+      expect(activePlayerBefore).not.toBe(activePlayerAfter);
+    });
   });
 });
