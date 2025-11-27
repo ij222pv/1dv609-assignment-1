@@ -68,4 +68,10 @@ describe("GameModelImpl", () => {
       }
     });
   });
+
+  test("should throw error when there are no players", () => {
+    expect(() => {
+      gameModel.getActivePlayer();
+    }).toThrow();
+  });
 });
