@@ -9,4 +9,12 @@ describe("Player", () => {
 
     expect(sut.getName()).toBe(name);
   });
+
+  test("should throw error when name is empty", () => {
+    const name = "";
+
+    const sut = () => new Player(name);
+
+    expect(sut).toThrow();
+  });
 });
