@@ -29,6 +29,10 @@ export default class GameModelImpl implements GameModel {
   }
 
   public getActivePlayer(): Player {
+    if (this.players.length === 0) {
+      throw new Error("there are no players");
+    }
+
     return this.players[this.activePlayerIndex];
   }
 }
