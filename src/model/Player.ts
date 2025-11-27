@@ -3,6 +3,10 @@ export default class Player {
     if (name === "") {
       throw new Error("Player name cannot be empty");
     }
+
+    if (name.match(/^\s+$/)) {
+      throw new Error("Player name cannot be only whitespaces");
+    }
   }
 
   public getName(): string {
