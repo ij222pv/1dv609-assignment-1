@@ -17,7 +17,7 @@ export default class GameModelImpl implements GameModel {
   }
 
   private handleRoll(dice: Dice): void {
-    this.activePlayerIndex = 1;
+    this.activePlayerIndex = Number(!this.activePlayerIndex);
   }
 
   public addPlayer(player: Player): void {
