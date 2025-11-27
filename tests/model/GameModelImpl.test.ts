@@ -8,9 +8,7 @@ describe("GameModelImpl", () => {
   let gameModel: GameModel;
 
   beforeEach(() => {
-    gameModel = new GameModelImpl(new D6DiceFactory({
-      getRandomIntegerInRange: (min: number, max: number): number => 3,
-    }));
+    gameModel = createMockedGameModel([3]);
   });
 
   test("should return dice with value 3", () => {
@@ -26,28 +24,20 @@ describe("GameModelImpl", () => {
   });
 
   describe("active player", () => {
-    let bob: Player;
-    let alice: Player;
+    let bob = new Player("Bob");
+    let alice = new Player("Alice");
+    let activePlayerBefore: Player;
 
     beforeEach(() => {
-      gameModel = new GameModelImpl(new D6DiceFactory({
-        getRandomIntegerInRange: (min: number, max: number): number => 1,
-      }));
-      bob = new Player("Bob");
-      alice = new Player("Alice");
-      gameModel.addPlayer(bob);
-      gameModel.addPlayer(alice);
+      gameModel = createMockedGameModel([1], [bob, alice]);
+      activePlayerBefore = gameModel.getActivePlayer();
     });
 
     test("should return a player who is playing the game", () => {
-      const activePlayer = gameModel.getActivePlayer();
-
-      expect([bob, alice]).toContain(activePlayer);
+      expect([bob, alice]).toContain(activePlayerBefore);
     });
 
     test("should change active player when 1 is rolled", () => {
-      const activePlayerBefore = gameModel.getActivePlayer();
-
       // Roll a 1
       gameModel.rollDice();
 
@@ -56,7 +46,7 @@ describe("GameModelImpl", () => {
     });
 
     test("should change active player every time when 1 is rolled multiple times in a row", () => {
-      let lastActivePlayer = gameModel.getActivePlayer();
+      let lastActivePlayer = activePlayerBefore;
 
       for (let i = 0; i < 10; i++) {
         // Roll a 1
@@ -75,3 +65,18 @@ describe("GameModelImpl", () => {
     }).toThrow();
   });
 });
+
+function createMockedGameModel(diceResults: number[], players?: Player[]): GameModel {
+  let currentDiceIndex = 0;
+  const game = new GameModelImpl(new D6DiceFactory({
+    getRandomIntegerInRange: (min: number, max: number): number => {
+      return diceResults[currentDiceIndex++ % diceResults.length]
+    },
+  }));
+
+  players?.forEach(player =>
+    game.addPlayer(player)
+  );
+
+  return game;
+}
