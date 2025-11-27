@@ -35,4 +35,21 @@ describe("GameModelImpl", () => {
 
     expect([bob, alice]).toContain(activePlayer);
   });
+
+  test("should change active player when 1 is rolled", () => {
+    gameModel = new GameModelImpl(new D6DiceFactory({
+      getRandomIntegerInRange: (min: number, max: number): number => 1,
+    }));
+    const bob = new Player("Bob");
+    const alice = new Player("Alice");
+    gameModel.addPlayer(bob);
+    gameModel.addPlayer(alice);
+    const activePlayerBefore = gameModel.getActivePlayer();
+
+    // Roll a 1
+    gameModel.rollDice();
+
+    const activePlayerAfter = gameModel.getActivePlayer();
+    expect(activePlayerBefore).not.toBe(activePlayerAfter);
+  });
 });
