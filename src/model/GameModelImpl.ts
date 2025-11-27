@@ -20,7 +20,12 @@ export default class GameModelImpl implements GameModel {
     if (this.players.length === 1) {
       return;
     }
-    this.activePlayerIndex = Number(!this.activePlayerIndex);
+    if (this.players.length === 2) {
+      this.activePlayerIndex = Number(!this.activePlayerIndex);
+      return;
+    }
+    this.activePlayerIndex++;
+    this.activePlayerIndex %= this.players.length;
   }
 
   public addPlayer(player: Player): void {
