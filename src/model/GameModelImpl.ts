@@ -1,11 +1,13 @@
 import Dice from "./Dice";
+import DiceFactory from "./DiceFactory";
 import GameModel from "./GameModel";
-import RandomProvider from "./RandomProvider";
 
 export default class GameModelImpl implements GameModel {
-  public constructor(private randomProvider: RandomProvider) {}
+  public constructor(private diceFactory: DiceFactory) {}
 
   public rollDice(): Dice {
-    return new Dice(this.randomProvider);
+    const dice = this.diceFactory.createDice();
+    dice.roll();
+    return dice;
   }
 }
