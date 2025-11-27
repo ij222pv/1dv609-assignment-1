@@ -75,6 +75,16 @@ describe("GameModelImpl", () => {
     expect(gameModel.getActivePlayer()).toBe(activePlayerBefore);
   });
 
+  test("rolling any number other than 1 should not change the active player", () => {
+    gameModel = createMockedGameModel([2, 3, 4, 5, 6], [new Player("Player1"), new Player("Player2")]);
+    const activePlayerBefore = gameModel.getActivePlayer();
+
+    for (let i = 0; i < 5; i++) {
+      gameModel.rollDice();
+      expect(gameModel.getActivePlayer()).toBe(activePlayerBefore);
+    }
+  });
+
   test("should change active player when a 1 is rolled and there are three players", () => {
     gameModel = createMockedGameModel([1], [new Player("Player1"), new Player("Player2"), new Player("Player3")]);
     const listOfActivePlayerEachRound: Player[] = [];
