@@ -5,4 +5,5 @@ export default interface GameModel {
   rollDice(): Dice;
   addPlayer(player: Player): void;
   getPlayers(): Player[];
+  getActivePlayer(): Player;
 }

@@ -1,7 +1,7 @@
 import type Dice from "./Dice";
 import type DiceFactory from "./DiceFactory";
 import type GameModel from "./GameModel";
-import Player from "./Player";
+import type Player from "./Player";
 
 export default class GameModelImpl implements GameModel {
   private players: Player[] = [];
@@ -20,5 +20,9 @@ export default class GameModelImpl implements GameModel {
 
   public getPlayers(): Player[] {
     return this.players;
+  }
+
+  public getActivePlayer(): Player {
+    return this.players[0];
   }
 }
