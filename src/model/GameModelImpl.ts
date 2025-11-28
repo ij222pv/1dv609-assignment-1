@@ -21,10 +21,14 @@ export default class GameModelImpl implements GameModel {
     this.diceOnTable.push(dice);
 
     if (dice.getValue() === 1) {
-      this.activePlayerIndex++;
-      this.activePlayerIndex %= this.players.length;
+      this.goToNextPlayer();
       this.diceOnTable = [];
     }
+  }
+
+  private goToNextPlayer(): void {
+    this.activePlayerIndex++;
+    this.activePlayerIndex %= this.players.length;
   }
 
   public addPlayer(player: Player): void {
@@ -48,8 +52,7 @@ export default class GameModelImpl implements GameModel {
     const score = this.calculateTurnScore();
     activePlayer.addScore(score);
 
-    this.activePlayerIndex++;
-    this.activePlayerIndex %= this.players.length;
+    this.goToNextPlayer();
   }
   
   private calculateTurnScore(): number {
