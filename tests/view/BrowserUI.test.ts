@@ -57,4 +57,12 @@ describe("BrowserUI", () => {
 
     expect(mockCallback).not.toHaveBeenCalled();
   });
+
+  test("should display current active player", () => {
+    const playerName = "Alice";
+    ui.setActivePlayer(playerName);
+
+    const activePlayerDiv = gameDiv.querySelector("#active-player");
+    expect(activePlayerDiv?.textContent).toContain(playerName);
+  });
 });
