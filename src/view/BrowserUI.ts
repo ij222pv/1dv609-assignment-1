@@ -1,5 +1,6 @@
 import Dice from "../model/Dice";
 import UI from "./UI";
+import gameTemplate from "./gameTemplate.html.ts";
 
 type Listener = {
   eventName: string,
@@ -9,7 +10,6 @@ type Listener = {
 export default class BrowserUI implements UI {
   private gameContainer: HTMLElement;
   private listeners: Listener[] = [];
-  private activePlayerDiv: HTMLParagraphElement | null = null;
   private static readonly DICE_IMAGE_PATH = "images/dice{value}.png";
 
   public constructor(gameContainer: HTMLElement) {
@@ -17,19 +17,19 @@ export default class BrowserUI implements UI {
     this.initGameContainer();
   }
 
-  private initGameContainer() {
-    this.gameContainer.appendChild(this.createRollButton());
-    this.activePlayerDiv = document.createElement("p");
-    this.activePlayerDiv.setAttribute("id", "active-player");
-    this.gameContainer.appendChild(this.activePlayerDiv);
+  private initGameContainer(): void {
+    this.writeTemplateStringToContainer(gameTemplate);
+    this.bindRollButton();
   }
 
-  private createRollButton(): HTMLElement {
-    const rollButton = document.createElement("button");
-    rollButton.textContent = "Roll dice!";
-    rollButton.setAttribute("id", "roll-button");
+  private writeTemplateStringToContainer(templateString: string): void {
+    // This is fine because the template is static and doesn't contain any user-provided data
+    this.gameContainer.innerHTML = templateString;
+  }
+
+  private bindRollButton(): void {
+    const rollButton = this.gameContainer.querySelector("#roll-button") as HTMLButtonElement;
     rollButton.addEventListener("click", this.callListener.bind(this, "roll"));
-    return rollButton;
   }
 
   private callListener(eventName: string) {
@@ -50,10 +50,11 @@ export default class BrowserUI implements UI {
     const diceImage = document.createElement("img");
     diceImage.setAttribute("class", "dice");
     diceImage.setAttribute("src", BrowserUI.DICE_IMAGE_PATH.replace("{value}", dice.getValue().toString()));
-    this.gameContainer.appendChild(diceImage);
+    this.gameContainer.querySelector('#dice-container')!.appendChild(diceImage);
   }
 
   public setActivePlayer(playerName: string): void {
-    this.activePlayerDiv!.textContent = `Current player: ${playerName}`;
+    const activePlayerText = this.gameContainer.querySelector("#active-player") as HTMLParagraphElement;
+    activePlayerText.textContent = `Current player: ${playerName}`;
   }r
 }
