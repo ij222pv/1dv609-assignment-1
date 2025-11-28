@@ -157,6 +157,16 @@ describe("GameModelImpl", () => {
     test("should not call activePlayerChange unless player changes", () => {
       expect(mockListener).not.toHaveBeenCalled();
     });
+
+    test("should not call other event when changing active player", () => {
+      const otherMockListener = jest.fn();
+      gameModel.addListener("someOtherEvent", otherMockListener);
+
+      // Roll a 1 to change active player
+      gameModel.rollDice();
+
+      expect(otherMockListener).not.toHaveBeenCalled();
+    });
   });
 });
 
