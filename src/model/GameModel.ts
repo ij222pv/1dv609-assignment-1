@@ -7,4 +7,5 @@ export default interface GameModel {
   getPlayers(): Player[];
   getActivePlayer(): Player;
   endTurn(): void;
+  addListener(eventName: string, listener: Function): void;
 }

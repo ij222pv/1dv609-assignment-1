@@ -58,4 +58,8 @@ export default class GameModelImpl implements GameModel {
   private calculateTurnScore(): number {
     return this.diceOnTable.reduce((sum, dice) => sum + dice.getValue(), 0);
   }
+
+  public addListener(eventName: string, callback: Function): void {
+    callback();
+  }
 }
