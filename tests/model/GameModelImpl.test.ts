@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, test } from "@jest/globals";
+import { beforeEach, describe, expect, jest, test } from "@jest/globals";
 import GameModelImpl from "../../src/model/GameModelImpl";
 import D6DiceFactory from "../../src/model/D6DiceFactory";
 import Player from "../../src/model/Player";
@@ -131,6 +131,20 @@ describe("GameModelImpl", () => {
     gameModel.endTurn();
 
     expect(gameModel.getActivePlayer()).not.toBe(activePlayerBefore);
+  });
+
+  test("should call activePlayerChange event when changing active player", () => {
+    const player1 = new Player("Player1");
+    const player2 = new Player("Player2");
+    gameModel = createMockedGameModel([1], [player1, player2]);
+    const mockListener = jest.fn();
+
+    gameModel.addListener("activePlayerChange", mockListener);
+
+    // Roll a 1 to change active player
+    gameModel.rollDice();
+
+    expect(mockListener).toHaveBeenCalled();
   });
 });
 
