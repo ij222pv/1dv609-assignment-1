@@ -35,9 +35,15 @@ export default class GameModelImpl implements GameModel {
   private goToNextPlayer(): void {
     this.activePlayerIndex++;
     this.activePlayerIndex %= this.players.length;
-    this.listeners.filter((listener) =>
-      listener.eventName === "activePlayerChange"
-    ).forEach((listener) => listener.callback());
+    this.callListeners("activePlayerChange");
+  }
+
+  private callListeners(eventName: string): void {
+    for (const listener of this.listeners) {
+      if (listener.eventName === eventName) {
+        listener.callback();
+      }
+    }
   }
 
   public addPlayer(player: Player): void {
