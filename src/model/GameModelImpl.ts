@@ -7,6 +7,7 @@ export default class GameModelImpl implements GameModel {
   private players: Player[] = [];
   private activePlayerIndex: number = 0;
   private diceOnTable: Dice[] = [];
+  private listeners: Function[] = [];
 
   public constructor(private diceFactory: DiceFactory) {}
 
@@ -29,6 +30,7 @@ export default class GameModelImpl implements GameModel {
   private goToNextPlayer(): void {
     this.activePlayerIndex++;
     this.activePlayerIndex %= this.players.length;
+    this.listeners.forEach((listener) => listener());
   }
 
   public addPlayer(player: Player): void {
@@ -60,6 +62,6 @@ export default class GameModelImpl implements GameModel {
   }
 
   public addListener(eventName: string, callback: Function): void {
-    callback();
+    this.listeners.push(callback);
   }
 }
