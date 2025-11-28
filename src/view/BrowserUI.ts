@@ -9,6 +9,7 @@ type Listener = {
 export default class BrowserUI implements UI {
   private gameContainer: HTMLElement;
   private listeners: Listener[] = [];
+  private activePlayerDiv: HTMLParagraphElement | null = null;
   private static readonly DICE_IMAGE_PATH = "images/dice{value}.png";
 
   public constructor(gameContainer: HTMLElement) {
@@ -18,6 +19,9 @@ export default class BrowserUI implements UI {
 
   private initGameContainer() {
     this.gameContainer.appendChild(this.createRollButton());
+    this.activePlayerDiv = document.createElement("p");
+    this.activePlayerDiv.setAttribute("id", "active-player");
+    this.gameContainer.appendChild(this.activePlayerDiv);
   }
 
   private createRollButton(): HTMLElement {
@@ -48,4 +52,8 @@ export default class BrowserUI implements UI {
     diceImage.setAttribute("src", BrowserUI.DICE_IMAGE_PATH.replace("{value}", dice.getValue().toString()));
     this.gameContainer.appendChild(diceImage);
   }
+
+  public setActivePlayer(playerName: string): void {
+    this.activePlayerDiv!.textContent = `Current player: ${playerName}`;
+  }r
 }
