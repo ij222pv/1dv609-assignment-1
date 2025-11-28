@@ -3,11 +3,16 @@ import type DiceFactory from "./DiceFactory";
 import type GameModel from "./GameModel";
 import type Player from "./Player";
 
+type Listener = {
+  eventName: string,
+  callback: Function,
+}
+
 export default class GameModelImpl implements GameModel {
   private players: Player[] = [];
   private activePlayerIndex: number = 0;
   private diceOnTable: Dice[] = [];
-  private listeners: Function[] = [];
+  private listeners: Listener[] = [];
 
   public constructor(private diceFactory: DiceFactory) {}
 
@@ -30,7 +35,9 @@ export default class GameModelImpl implements GameModel {
   private goToNextPlayer(): void {
     this.activePlayerIndex++;
     this.activePlayerIndex %= this.players.length;
-    this.listeners.forEach((listener) => listener());
+    this.listeners.filter((listener) =>
+      listener.eventName === "activePlayerChange"
+    ).forEach((listener) => listener.callback());
   }
 
   public addPlayer(player: Player): void {
@@ -62,6 +69,6 @@ export default class GameModelImpl implements GameModel {
   }
 
   public addListener(eventName: string, callback: Function): void {
-    this.listeners.push(callback);
+    this.listeners.push({ eventName, callback });
   }
 }
