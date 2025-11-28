@@ -148,6 +148,20 @@ describe("GameModelImpl", () => {
 
     expect(mockListener).toHaveBeenCalled();
   });
+
+  test("should not call activePlayerChange unless player changes", () => {
+    gameModel = createMockedGameModel([2, 3, 4], createPlayerArray(2));
+    const mockListener = jest.fn();
+
+    gameModel.addListener("activePlayerChange", mockListener);
+
+    // Roll numbers other than 1, which doesn't change active player
+    gameModel.rollDice();
+    gameModel.rollDice();
+    gameModel.rollDice();
+
+    expect(mockListener).not.toHaveBeenCalled();
+  });
 });
 
 function createMockedGameModel(diceResults: number[], players?: Player[]): GameModel {
