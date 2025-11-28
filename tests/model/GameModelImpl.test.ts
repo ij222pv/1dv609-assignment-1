@@ -120,6 +120,16 @@ describe("GameModelImpl", () => {
 
     expect(gameModel.getActivePlayer().getScore()).toBe(3);
   });
+
+  test("should go to next player when ending turn", () => {
+    gameModel = createMockedGameModel([2], [new Player("Player1"), new Player("Player2")]);
+    const activePlayerBefore = gameModel.getActivePlayer();
+
+    gameModel.rollDice();
+    gameModel.endTurn();
+
+    expect(gameModel.getActivePlayer()).not.toBe(activePlayerBefore);
+  });
 });
 
 function createMockedGameModel(diceResults: number[], players?: Player[]): GameModel {
