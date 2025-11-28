@@ -23,6 +23,7 @@ export default class GameModelImpl implements GameModel {
     if (dice.getValue() === 1) {
       this.activePlayerIndex++;
       this.activePlayerIndex %= this.players.length;
+      this.diceOnTable = [];
     }
   }
 
