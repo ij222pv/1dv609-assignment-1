@@ -137,30 +137,26 @@ describe("GameModelImpl", () => {
     });
   });
 
-  test("should call activePlayerChange event when changing active player", () => {
-    gameModel = createMockedGameModel([1], createPlayerArray(2));
-    const mockListener = jest.fn();
+  describe("event listeners", () => {
+    let mockListener: jest.Mock;
 
-    gameModel.addListener("activePlayerChange", mockListener);
+    beforeEach(() => {
+      gameModel = createMockedGameModel([1], createPlayerArray(2));
+      mockListener = jest.fn();
 
-    // Roll a 1 to change active player
-    gameModel.rollDice();
+      gameModel.addListener("activePlayerChange", mockListener);
+    });
 
-    expect(mockListener).toHaveBeenCalled();
-  });
+    test("should call activePlayerChange event when changing active player", () => {
+      // Roll a 1 to change active player
+      gameModel.rollDice();
 
-  test("should not call activePlayerChange unless player changes", () => {
-    gameModel = createMockedGameModel([2, 3, 4], createPlayerArray(2));
-    const mockListener = jest.fn();
+      expect(mockListener).toHaveBeenCalled();
+    });
 
-    gameModel.addListener("activePlayerChange", mockListener);
-
-    // Roll numbers other than 1, which doesn't change active player
-    gameModel.rollDice();
-    gameModel.rollDice();
-    gameModel.rollDice();
-
-    expect(mockListener).not.toHaveBeenCalled();
+    test("should not call activePlayerChange unless player changes", () => {
+      expect(mockListener).not.toHaveBeenCalled();
+    });
   });
 });
 
