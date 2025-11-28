@@ -110,7 +110,9 @@ describe("GameModelImpl", () => {
   });
 
   test("rolling a 1, then rolling a 3, then ending turn should add only 3 to the player's score", () => {
-    gameModel = createMockedGameModel([1, 3], [new Player("Player1"), new Player("Player2")]);
+    const player1 = new Player("Player1");
+    const player2 = new Player("Player2");
+    gameModel = createMockedGameModel([1, 3], [player1, player2]);
 
     // Roll 1. This ends Player1's turn.
     gameModel.rollDice();
@@ -118,7 +120,7 @@ describe("GameModelImpl", () => {
     gameModel.rollDice();
     gameModel.endTurn();
 
-    expect(gameModel.getActivePlayer().getScore()).toBe(3);
+    expect(player2.getScore()).toBe(3);
   });
 
   test("should go to next player when ending turn", () => {

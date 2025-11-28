@@ -47,6 +47,9 @@ export default class GameModelImpl implements GameModel {
     const activePlayer = this.getActivePlayer();
     const score = this.calculateTurnScore();
     activePlayer.addScore(score);
+
+    this.activePlayerIndex++;
+    this.activePlayerIndex %= this.players.length;
   }
   
   private calculateTurnScore(): number {
