@@ -4,6 +4,7 @@ import UI from "../../src/view/UI";
 import Dice from "../../src/model/Dice";
 import GameModel from "../../src/model/GameModel";
 import RandomProvider from "../../src/model/RandomProvider";
+import Player from "../../src/model/Player";
 
 class FakeUI implements UI {
   private listeners: { eventName: string; callback: Function }[] = [];
@@ -20,6 +21,8 @@ class FakeUI implements UI {
       listener.callback();
     }
   }
+
+  public setActivePlayer = jest.fn((playerName: string): void => {});
 }
 
 class MockGameModel implements GameModel {
@@ -28,6 +31,12 @@ class MockGameModel implements GameModel {
       getRandomIntegerInRange: (min: number, max: number): number => 1,
     });
   });
+
+  addPlayer(player: Player): void {}
+  getPlayers(): Player[] { return []; }
+  getActivePlayer(): Player { return new Player("");}
+  endTurn(): void {}
+  addListener(eventName: string, listener: Function): void {}
 }
 
 describe("GameController", () => {
