@@ -36,7 +36,7 @@ class MockGameModel implements GameModel {
   getPlayers(): Player[] { return []; }
   getActivePlayer(): Player { return new Player("");}
   endTurn(): void {}
-  addListener(eventName: string, listener: Function): void {}
+  addListener = jest.fn((eventName: string, listener: Function) => {});
 }
 
 describe("GameController", () => {
@@ -54,6 +54,10 @@ describe("GameController", () => {
 
   test("should add roll listener", () => {
     expect(view.addListener).toHaveBeenCalledWith("roll", expect.any(Function));
+  });
+
+  test("should add activePlayerChange listener", () => {
+    expect(model.addListener).toHaveBeenCalledWith("activePlayerChange", expect.any(Function));
   });
 
   describe("roll event", () => {
