@@ -5,6 +5,8 @@ import Dice from "../../src/model/Dice";
 import GameModel from "../../src/model/GameModel";
 import Player from "../../src/model/Player";
 
+const PLAYER_NAME = "Player Name";
+
 class FakeUI implements UI {
   private listeners: { eventName: string; callback: Function }[] = [];
 
@@ -35,7 +37,7 @@ class MockGameModel implements GameModel {
 
   addPlayer(player: Player): void {}
   getPlayers(): Player[] { return []; }
-  getActivePlayer(): Player { return new Player("Player Name");}
+  getActivePlayer(): Player { return new Player(PLAYER_NAME);}
   endTurn(): void {}
   addListener = jest.fn((eventName: string, callback: Function) => {
     this.listeners.push({ eventName, callback });
@@ -95,7 +97,7 @@ describe("GameController", () => {
       // Simulate the activePlayerChange event being triggered
       model.callActivePlayerChangeListeners();
 
-      expect(view.setActivePlayer).toHaveBeenCalledWith("Player Name");
+      expect(view.setActivePlayer).toHaveBeenCalledWith(PLAYER_NAME);
     });
   });
 });
