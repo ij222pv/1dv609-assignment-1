@@ -1,3 +1,4 @@
+import EventPublisherImpl from "../EventPublisherImpl";
 import type Dice from "./Dice";
 import type DiceFactory from "./DiceFactory";
 import type GameModel from "./GameModel";
@@ -12,7 +13,7 @@ export default class GameModelImpl implements GameModel {
   private players: Player[] = [];
   private activePlayerIndex: number = 0;
   private diceOnTable: Dice[] = [];
-  private listeners: Listener[] = [];
+  private eventPublisher: EventPublisherImpl = new EventPublisherImpl();
 
   public constructor(private diceFactory: DiceFactory) {}
 
@@ -39,11 +40,7 @@ export default class GameModelImpl implements GameModel {
   }
 
   private callListeners(eventName: string): void {
-    for (const listener of this.listeners) {
-      if (listener.eventName === eventName) {
-        listener.callback();
-      }
-    }
+    this.eventPublisher.notifySubscribers(eventName);
   }
 
   public addPlayer(player: Player): void {
@@ -74,7 +71,7 @@ export default class GameModelImpl implements GameModel {
     return this.diceOnTable.reduce((sum, dice) => sum + dice.getValue(), 0);
   }
 
-  public addListener(eventName: string, callback: Function): void {
-    this.listeners.push({ eventName, callback });
+  public addSubscriber(eventName: string, callback: Function): void {
+    this.eventPublisher.addSubscriber(eventName, callback);
   }
 }

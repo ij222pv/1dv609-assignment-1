@@ -5,12 +5,12 @@ export default class GameController {
   public constructor(private model: GameModel, private view: UI) {}
 
   public start() {
-    this.view.addListener("roll", () => {
+    this.view.addSubscriber("roll", () => {
       const dice = this.model.rollDice.bind(this.model)();
       this.view.showDice(dice);
     });
 
-    this.model.addListener("activePlayerChange", () => {
+    this.model.addSubscriber("activePlayerChange", () => {
       this.view.setActivePlayer(this.model.getActivePlayer().getName());
     });
   }

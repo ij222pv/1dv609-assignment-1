@@ -144,7 +144,7 @@ describe("GameModelImpl", () => {
       gameModel = createMockedGameModel([1], createPlayerArray(2));
       mockListener = jest.fn();
 
-      gameModel.addListener("activePlayerChange", mockListener);
+      gameModel.addSubscriber("activePlayerChange", mockListener);
     });
 
     test("should call activePlayerChange event when changing active player", () => {
@@ -160,7 +160,7 @@ describe("GameModelImpl", () => {
 
     test("should not call other event when changing active player", () => {
       const otherMockListener = jest.fn();
-      gameModel.addListener("someOtherEvent", otherMockListener);
+      gameModel.addSubscriber("someOtherEvent", otherMockListener);
 
       // Roll a 1 to change active player
       gameModel.rollDice();

@@ -19,7 +19,7 @@ describe("BrowserUI", () => {
     test('should call callback when clicking roll button', () => {
       const mockCallback = jest.fn();
 
-      ui.addListener("roll", mockCallback);
+      ui.addSubscriber("roll", mockCallback);
       gameDiv.querySelector("#roll-button")?.dispatchEvent(new MouseEvent("click"));
 
       expect(mockCallback).toHaveBeenCalled();
@@ -51,7 +51,7 @@ describe("BrowserUI", () => {
   test("should not call listener for different event", () => {
     const mockCallback = jest.fn();
 
-    ui.addListener("someOtherEvent", mockCallback);
+    ui.addSubscriber("someOtherEvent", mockCallback);
     // This will trigger the "roll" event
     gameDiv.querySelector("#roll-button")?.dispatchEvent(new MouseEvent("click"));
 

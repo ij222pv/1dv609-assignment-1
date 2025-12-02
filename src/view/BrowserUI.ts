@@ -1,15 +1,11 @@
+import EventPublisherImpl from "../EventPublisherImpl.ts";
 import Dice from "../model/Dice";
 import UI from "./UI";
 import gameTemplate from "./gameTemplate.html.ts";
 
-type Listener = {
-  eventName: string,
-  callback: Function,
-}
-
 export default class BrowserUI implements UI {
   private gameContainer: HTMLElement;
-  private listeners: Listener[] = [];
+  private eventPublisher = new EventPublisherImpl();
   private static readonly DICE_IMAGE_PATH = "images/dice{value}.png";
 
   public constructor(gameContainer: HTMLElement) {
@@ -29,21 +25,15 @@ export default class BrowserUI implements UI {
 
   private bindRollButton(): void {
     const rollButton = this.gameContainer.querySelector("#roll-button") as HTMLButtonElement;
-    rollButton.addEventListener("click", this.callListener.bind(this, "roll"));
+    rollButton.addEventListener("click", this.notifySubscribers.bind(this, "roll"));
   }
 
-  private callListener(eventName: string) {
-    for (const listener of this.listeners) {
-      if (listener.eventName !== eventName) {
-        return;
-      }
-
-      listener.callback();
-    }
+  private notifySubscribers(eventName: string) {
+    this.eventPublisher.notifySubscribers(eventName);
   }
   
-  public addListener(eventName: string, callback: Function) {
-    this.listeners.push({eventName, callback});
+  public addSubscriber(eventName: string, callback: Function) {
+    this.eventPublisher.addSubscriber(eventName, callback);
   }
 
   public showDice(dice: Dice) {

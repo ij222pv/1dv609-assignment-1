@@ -8,12 +8,12 @@ import Player from "../../src/model/Player";
 const PLAYER_NAME = "Player Name";
 
 class FakeUI implements UI {
-  public addListener = jest.fn((eventName: string, callback: Function): void => {});
+  public addSubscriber = jest.fn((eventName: string, callback: Function): void => {});
 
   public showDice = jest.fn((dice: Dice): void => {});
 
   public callRollListeners(): void {
-    const rollListeners = this.addListener.mock.calls.filter(l => l[0] === "roll");
+    const rollListeners = this.addSubscriber.mock.calls.filter(l => l[0] === "roll");
     for (const listener of rollListeners) {
       // Call the callback
       listener[1]();
@@ -34,10 +34,10 @@ class MockGameModel implements GameModel {
   getPlayers(): Player[] { return []; }
   getActivePlayer(): Player { return new Player(PLAYER_NAME);}
   endTurn(): void {}
-  addListener = jest.fn((eventName: string, callback: Function) => {});
+  addSubscriber = jest.fn((eventName: string, callback: Function) => {});
 
   callActivePlayerChangeListeners(): void {
-    const filteredListeners = this.addListener.mock.calls.filter(l => l[0] === "activePlayerChange");
+    const filteredListeners = this.addSubscriber.mock.calls.filter(l => l[0] === "activePlayerChange");
     for (const listener of filteredListeners) {
       // Call the callback
       listener[1]();
@@ -59,11 +59,11 @@ describe("GameController", () => {
   });
 
   test("should add roll listener", () => {
-    expect(view.addListener).toHaveBeenCalledWith("roll", expect.any(Function));
+    expect(view.addSubscriber).toHaveBeenCalledWith("roll", expect.any(Function));
   });
 
   test("should add activePlayerChange listener", () => {
-    expect(model.addListener).toHaveBeenCalledWith("activePlayerChange", expect.any(Function));
+    expect(model.addSubscriber).toHaveBeenCalledWith("activePlayerChange", expect.any(Function));
   });
 
   describe("roll event", () => {
