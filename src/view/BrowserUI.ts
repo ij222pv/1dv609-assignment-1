@@ -56,5 +56,5 @@ export default class BrowserUI implements UI {
   public setActivePlayer(playerName: string): void {
     const activePlayerText = this.gameContainer.querySelector("#active-player") as HTMLParagraphElement;
     activePlayerText.textContent = `Current player: ${playerName}`;
-  }r
+  }
 }
