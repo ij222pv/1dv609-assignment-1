@@ -9,5 +9,7 @@ export default class GameController {
       const dice = this.model.rollDice.bind(this.model)();
       this.view.showDice(dice);
     });
+
+    this.model.addListener("activePlayerChange", () => {});
   }
 }
