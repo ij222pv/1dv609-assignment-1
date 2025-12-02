@@ -8,18 +8,15 @@ import Player from "../../src/model/Player";
 const PLAYER_NAME = "Player Name";
 
 class FakeUI implements UI {
-  private listeners: { eventName: string; callback: Function }[] = [];
-
-  public addListener = jest.fn((eventName: string, callback: Function): void => {
-    this.listeners.push({ eventName, callback });
-  });
+  public addListener = jest.fn((eventName: string, callback: Function): void => {});
 
   public showDice = jest.fn((dice: Dice): void => {});
 
   public callRollListeners(): void {
-    const rollListeners = this.listeners.filter(l => l.eventName === "roll");
+    const rollListeners = this.addListener.mock.calls.filter(l => l[0] === "roll");
     for (const listener of rollListeners) {
-      listener.callback();
+      // Call the callback
+      listener[1]();
     }
   }
 
@@ -27,8 +24,6 @@ class FakeUI implements UI {
 }
 
 class MockGameModel implements GameModel {
-  listeners: { eventName: string; callback: Function }[] = [];
-
   rollDice = jest.fn((): Dice => {
     return new Dice({
       getRandomIntegerInRange: (min: number, max: number): number => 1,
@@ -39,14 +34,13 @@ class MockGameModel implements GameModel {
   getPlayers(): Player[] { return []; }
   getActivePlayer(): Player { return new Player(PLAYER_NAME);}
   endTurn(): void {}
-  addListener = jest.fn((eventName: string, callback: Function) => {
-    this.listeners.push({ eventName, callback });
-  });
+  addListener = jest.fn((eventName: string, callback: Function) => {});
 
   callActivePlayerChangeListeners(): void {
-    const filteredListeners = this.listeners.filter(l => l.eventName === "activePlayerChange");
+    const filteredListeners = this.addListener.mock.calls.filter(l => l[0] === "activePlayerChange");
     for (const listener of filteredListeners) {
-      listener.callback();
+      // Call the callback
+      listener[1]();
     }
   }
 }
