@@ -10,6 +10,8 @@ export default class GameController {
       this.view.showDice(dice);
     });
 
-    this.model.addListener("activePlayerChange", () => {});
+    this.model.addListener("activePlayerChange", () => {
+      this.view.setActivePlayer(this.model.getActivePlayer().getName());
+    });
   }
 }
