@@ -3,7 +3,6 @@ import GameController from "../../src/controller/GameController";
 import UI from "../../src/view/UI";
 import Dice from "../../src/model/Dice";
 import GameModel from "../../src/model/GameModel";
-import RandomProvider from "../../src/model/RandomProvider";
 import Player from "../../src/model/Player";
 
 class FakeUI implements UI {
@@ -26,6 +25,8 @@ class FakeUI implements UI {
 }
 
 class MockGameModel implements GameModel {
+  listeners: { eventName: string; callback: Function }[] = [];
+
   rollDice = jest.fn((): Dice => {
     return new Dice({
       getRandomIntegerInRange: (min: number, max: number): number => 1,
@@ -34,9 +35,18 @@ class MockGameModel implements GameModel {
 
   addPlayer(player: Player): void {}
   getPlayers(): Player[] { return []; }
-  getActivePlayer(): Player { return new Player("");}
+  getActivePlayer(): Player { return new Player("Player Name");}
   endTurn(): void {}
-  addListener = jest.fn((eventName: string, listener: Function) => {});
+  addListener = jest.fn((eventName: string, callback: Function) => {
+    this.listeners.push({ eventName, callback });
+  });
+
+  callActivePlayerChangeListeners(): void {
+    const filteredListeners = this.listeners.filter(l => l.eventName === "activePlayerChange");
+    for (const listener of filteredListeners) {
+      listener.callback();
+    }
+  }
 }
 
 describe("GameController", () => {
@@ -77,6 +87,15 @@ describe("GameController", () => {
     test("should call UI.showDice with the Dice returned from model.rollDice", () => {
       const returnedDice = model.rollDice.mock.results[0].value as Dice;
       expect(view.showDice).toHaveBeenCalledWith(returnedDice);
+    });
+  });
+
+  describe("activePlayerChange event", () => {
+    test("should call view.setActivePlayer when active player changes", () => {
+      // Simulate the activePlayerChange event being triggered
+      model.callActivePlayerChangeListeners();
+
+      expect(view.setActivePlayer).toHaveBeenCalledWith("Player Name");
     });
   });
 });
