@@ -44,6 +44,14 @@ class MockGameModel implements GameModel {
       listener[1]();
     }
   }
+
+  callClearTableListeners(): void {
+    const filteredListeners = this.addSubscriber.mock.calls.filter(l => l[0] === "clearTable");
+    for (const listener of filteredListeners) {
+      // Call the callback
+      listener[1]();
+    }
+  }
 }
 
 describe("GameController", () => {
@@ -93,6 +101,14 @@ describe("GameController", () => {
       model.callActivePlayerChangeListeners();
 
       expect(view.setActivePlayer).toHaveBeenCalledWith(PLAYER_NAME);
+    });
+  });
+
+  describe("clearTable event", () => {
+    test("should call view.clearDice when clearTable event is triggered", () => {
+      model.callClearTableListeners();
+
+      expect(view.clearDice).toHaveBeenCalled();
     });
   });
 });
