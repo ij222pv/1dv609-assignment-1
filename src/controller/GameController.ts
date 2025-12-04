@@ -8,7 +8,6 @@ export default class GameController {
   public start() {
     this.view.addSubscriber("roll", () => {
       const dice = this.model.rollDice.bind(this.model)();
-      this.view.showDice(dice);
     });
 
     this.model.addSubscriber("activePlayerChange", () => {
@@ -19,7 +18,7 @@ export default class GameController {
       this.view.clearDice();
     });
 
-    this.model.addSubscriber("rollDice", (dice: Dice) => {
+    this.model.addSubscriber("diceRolled", (dice: Dice) => {
       this.view.showDice(dice);
     });
   }
