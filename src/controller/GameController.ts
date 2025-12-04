@@ -1,3 +1,4 @@
+import Dice from "../model/Dice";
 import GameModel from "../model/GameModel";
 import UI from "../view/UI";
 
@@ -16,6 +17,10 @@ export default class GameController {
 
     this.model.addSubscriber("clearTable", () => {
       this.view.clearDice();
+    });
+
+    this.model.addSubscriber("rollDice", (dice: Dice) => {
+      this.view.showDice(dice);
     });
   }
 }
