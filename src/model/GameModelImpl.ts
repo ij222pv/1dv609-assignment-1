@@ -21,7 +21,9 @@ export default class GameModelImpl implements GameModel {
     const dice = this.diceFactory.createDice();
     this.handleRoll(dice);
 
-    this.callListeners("clearTable");
+    if (dice.getValue() === 1) {
+      this.callListeners("clearTable");
+    }
     
     return dice;
   }
