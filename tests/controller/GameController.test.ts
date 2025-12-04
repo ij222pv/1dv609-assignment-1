@@ -8,28 +8,20 @@ import Player from "../../src/model/Player";
 const PLAYER_NAME = "Player Name";
 
 class FakeUI implements UI {
-  public addSubscriber = jest.fn((eventName: string, callback: Function): void => {});
+  addSubscriber = jest.fn((eventName: string, callback: Function): void => {});
 
-  public showDice = jest.fn((dice: Dice): void => {});
+  showDice = jest.fn((dice: Dice): void => {});
 
-  public callRollListeners(): void {
-    const rollListeners = this.addSubscriber.mock.calls.filter(l => l[0] === "roll");
-    for (const listener of rollListeners) {
+  dispatchEvent(eventName: string, ...args: any[]): void {
+    const filteredListeners = this.addSubscriber.mock.calls.filter(l => l[0] === eventName);
+    for (const listener of filteredListeners) {
       // Call the callback
-      listener[1]();
+      listener[1](...args);
     }
   }
 
-  public callAddPlayerListeners(name: string): void {
-    const addPlayerListeners = this.addSubscriber.mock.calls.filter(l => l[0] === "addPlayer");
-    for (const listener of addPlayerListeners) {
-      // Call the callback
-      listener[1](PLAYER_NAME, name);
-    }
-  }
-
-  public setActivePlayer = jest.fn((playerName: string): void => {});
-  public clearDice = jest.fn((): void => {});
+  setActivePlayer = jest.fn((playerName: string): void => {});
+  clearDice = jest.fn((): void => {});
 }
 
 class MockGameModel implements GameModel {
@@ -45,11 +37,11 @@ class MockGameModel implements GameModel {
   endTurn(): void {}
   addSubscriber = jest.fn((eventName: string, callback: Function) => {});
 
-  dispatchEvent(eventName: string): void {
+  dispatchEvent(eventName: string, ...args: any[]): void {
     const filteredListeners = this.addSubscriber.mock.calls.filter(l => l[0] === eventName);
     for (const listener of filteredListeners) {
       // Call the callback
-      listener[1]();
+      listener[1](...args);
     }
   }
 }
@@ -78,7 +70,7 @@ describe("GameController", () => {
   describe("roll event", () => {
     beforeEach(() => {
       // Simulate the roll event being triggered
-      view.callRollListeners();
+      view.dispatchEvent("roll");
     });
 
     test("should call model.rollDice when roll event is triggered", () => {
@@ -117,7 +109,7 @@ describe("GameController", () => {
 
   describe("addPlayer event", () => {
     test("should call model.addPlayer when addPlayer event is triggered", () => {
-      view.callAddPlayerListeners(PLAYER_NAME);
+      view.dispatchEvent("addPlayer", PLAYER_NAME);
 
       const namePassedToModel = model.addPlayer.mock.calls[0][0].getName();
       expect(model.addPlayer).toHaveBeenCalled();
