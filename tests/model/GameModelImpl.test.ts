@@ -167,6 +167,16 @@ describe("GameModelImpl", () => {
 
       expect(otherMockListener).not.toHaveBeenCalled();
     });
+
+    test("should call clearTable event rolling a 1", () => {
+      const clearTableListener = jest.fn();
+      gameModel.addSubscriber("clearTable", clearTableListener);
+
+      // Roll a 1 to change active player
+      gameModel.rollDice();
+
+      expect(clearTableListener).toHaveBeenCalled();
+    });
   });
 });
 
