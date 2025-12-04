@@ -21,6 +21,7 @@ class FakeUI implements UI {
   }
 
   public setActivePlayer = jest.fn((playerName: string): void => {});
+  public clearDice = jest.fn((): void => {});
 }
 
 class MockGameModel implements GameModel {

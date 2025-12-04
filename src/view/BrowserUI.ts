@@ -47,4 +47,8 @@ export default class BrowserUI implements UI {
     const activePlayerText = this.gameContainer.querySelector("#active-player") as HTMLParagraphElement;
     activePlayerText.textContent = `Current player: ${playerName}`;
   }
+
+  public clearDice(): void {
+    this.gameContainer.querySelector('#dice-container')!.innerHTML = '';
+  }
 }
