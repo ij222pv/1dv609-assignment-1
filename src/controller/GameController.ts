@@ -13,5 +13,9 @@ export default class GameController {
     this.model.addSubscriber("activePlayerChange", () => {
       this.view.setActivePlayer(this.model.getActivePlayer().getName());
     });
+
+    this.model.addSubscriber("clearTable", () => {
+      this.view.clearDice();
+    });
   }
 }
