@@ -20,7 +20,7 @@ export default class GameModelImpl implements GameModel {
   public rollDice(): Dice {
     const dice = this.diceFactory.createDice();
     this.handleRoll(dice);
-    
+    this.callListeners("diceRolled");
     return dice;
   }
 
