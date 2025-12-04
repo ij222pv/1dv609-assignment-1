@@ -20,7 +20,7 @@ describe("BrowserUI", () => {
       const mockCallback = jest.fn();
 
       ui.addSubscriber("roll", mockCallback);
-      gameDiv.querySelector("#roll-button")?.dispatchEvent(new MouseEvent("click"));
+      (gameDiv.querySelector("#roll-button") as HTMLButtonElement).click();
 
       expect(mockCallback).toHaveBeenCalled();
     });
@@ -53,7 +53,7 @@ describe("BrowserUI", () => {
 
     ui.addSubscriber("someOtherEvent", mockCallback);
     // This will trigger the "roll" event
-    gameDiv.querySelector("#roll-button")?.dispatchEvent(new MouseEvent("click"));
+    (gameDiv.querySelector("#roll-button") as HTMLButtonElement).click();
 
     expect(mockCallback).not.toHaveBeenCalled();
   });
