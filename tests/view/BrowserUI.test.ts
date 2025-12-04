@@ -65,4 +65,13 @@ describe("BrowserUI", () => {
     const activePlayerDiv = gameDiv.querySelector("#active-player");
     expect(activePlayerDiv?.textContent).toContain(playerName);
   });
+
+  test("should clear previous dice", () => {
+    showDiceWithValue(2);
+
+    ui.clearDice();
+
+    const diceImages = gameDiv.querySelectorAll("img[class='dice']");
+    expect(diceImages.length).toBe(0);
+  });
 });
