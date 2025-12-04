@@ -37,16 +37,8 @@ class MockGameModel implements GameModel {
   endTurn(): void {}
   addSubscriber = jest.fn((eventName: string, callback: Function) => {});
 
-  callActivePlayerChangeListeners(): void {
-    const filteredListeners = this.addSubscriber.mock.calls.filter(l => l[0] === "activePlayerChange");
-    for (const listener of filteredListeners) {
-      // Call the callback
-      listener[1]();
-    }
-  }
-
-  callClearTableListeners(): void {
-    const filteredListeners = this.addSubscriber.mock.calls.filter(l => l[0] === "clearTable");
+  dispatchEvent(eventName: string): void {
+    const filteredListeners = this.addSubscriber.mock.calls.filter(l => l[0] === eventName);
     for (const listener of filteredListeners) {
       // Call the callback
       listener[1]();
@@ -98,7 +90,7 @@ describe("GameController", () => {
   describe("activePlayerChange event", () => {
     test("should call view.setActivePlayer when active player changes", () => {
       // Simulate the activePlayerChange event being triggered
-      model.callActivePlayerChangeListeners();
+      model.dispatchEvent("activePlayerChange");
 
       expect(view.setActivePlayer).toHaveBeenCalledWith(PLAYER_NAME);
     });
@@ -106,7 +98,7 @@ describe("GameController", () => {
 
   describe("clearTable event", () => {
     test("should call view.clearDice when clearTable event is triggered", () => {
-      model.callClearTableListeners();
+      model.dispatchEvent("clearTable");
 
       expect(view.clearDice).toHaveBeenCalled();
     });
