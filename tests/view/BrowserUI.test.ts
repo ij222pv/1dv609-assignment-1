@@ -74,4 +74,17 @@ describe("BrowserUI", () => {
     const diceImages = gameDiv.querySelectorAll("img[class='dice']");
     expect(diceImages.length).toBe(0);
   });
+
+  describe("adding players", () => {
+    test("should dispatch addPlayer event with player name as an argument to the callback function when adding a player", () => {
+      const addPlayerCallback = jest.fn();
+
+      ui.addSubscriber("addPlayer", addPlayerCallback);
+
+      (gameDiv.querySelector("#player-name-input") as HTMLInputElement).value = "Bob";
+      gameDiv.querySelector("#add-player-form")!.dispatchEvent(new Event("submit"));
+
+      expect(addPlayerCallback).toHaveBeenCalledWith("Bob");
+    });
+  });
 });
