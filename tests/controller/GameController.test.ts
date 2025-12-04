@@ -103,4 +103,12 @@ describe("GameController", () => {
       expect(view.clearDice).toHaveBeenCalled();
     });
   });
+
+  describe("rollDice event", () => {
+    test("should run view.showDice when rollDice event is triggered", () => {
+      model.dispatchEvent("rollDice");
+
+      expect(view.showDice).toHaveBeenCalled();
+    });
+  });
 });
