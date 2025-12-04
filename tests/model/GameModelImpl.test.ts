@@ -188,6 +188,15 @@ describe("GameModelImpl", () => {
 
       expect(clearTableCallback).not.toHaveBeenCalled();
     });
+
+    test("should call diceRolled event when rolling a dice", () => {
+      const diceRolledCallback = jest.fn();
+      gameModel.addSubscriber("diceRolled", diceRolledCallback);
+
+      gameModel.rollDice();
+
+      expect(diceRolledCallback).toHaveBeenCalled();
+    });
   });
 });
 
