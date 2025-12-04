@@ -221,6 +221,20 @@ describe("GameModelImpl", () => {
       expect(calledWithDice.getValue()).toBe(3);
     });
   });
+
+  test("should dispatch clearTable AFTER diceRolled when rolling a 1", () => {
+    const clearTableCallback = jest.fn();
+    const diceRolledCallback = jest.fn();
+    gameModel = createMockedGameModel([1], createPlayerArray(2));
+    gameModel.addSubscriber("clearTable", clearTableCallback);
+    gameModel.addSubscriber("diceRolled", diceRolledCallback);
+
+    diceRolledCallback.mockImplementation(() => {
+      expect(clearTableCallback).not.toHaveBeenCalled();
+    });
+
+    gameModel.rollDice();
+  });
 });
 
 function createMockedGameModel(diceResults: number[], players?: Player[]): GameModel {
