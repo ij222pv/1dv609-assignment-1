@@ -4,6 +4,7 @@ import UI from "../../src/view/UI";
 import Dice from "../../src/model/Dice";
 import GameModel from "../../src/model/GameModel";
 import Player from "../../src/model/Player";
+import PlayerFactory from "../../src/model/PlayerFactory";
 
 const PLAYER_NAME = "Player Name";
 
@@ -54,7 +55,7 @@ describe("GameController", () => {
   beforeEach(() => {
     model = new MockGameModel();
     view = new FakeUI();
-    controller = new GameController(model, view);
+    controller = new GameController(model, view, new PlayerFactory());
 
     controller.start();
   });
@@ -114,6 +115,18 @@ describe("GameController", () => {
       const namePassedToModel = model.addPlayer.mock.calls[0][0].getName();
       expect(model.addPlayer).toHaveBeenCalled();
       expect(namePassedToModel).toBe(PLAYER_NAME);
+    });
+
+    test("should call mocked player factory to create player", () => {
+      const mockPlayerFactory = {
+        createPlayer: jest.fn((name: string) => new Player(name))
+      };
+      controller = new GameController(model, view, mockPlayerFactory);
+      controller.start();
+
+      view.dispatchEvent("addPlayer", PLAYER_NAME);
+
+      expect(mockPlayerFactory).toHaveBeenCalledWith(PLAYER_NAME);
     });
   });
 });
