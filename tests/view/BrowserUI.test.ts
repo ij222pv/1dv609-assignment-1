@@ -6,6 +6,8 @@ import { beforeEach, describe, expect, jest, test } from "@jest/globals";
 import BrowserUI from "../../src/view/BrowserUI";
 import Dice from "../../src/model/Dice";
 
+const PLAYER_NAME = "John Doe";
+
 describe("BrowserUI", () => {
   let gameDiv: HTMLElement;
   let ui: BrowserUI;
@@ -59,11 +61,10 @@ describe("BrowserUI", () => {
   });
 
   test("should display current active player", () => {
-    const playerName = "Alice";
-    ui.setActivePlayer(playerName);
+    ui.setActivePlayer(PLAYER_NAME);
 
     const activePlayerDiv = gameDiv.querySelector("#active-player");
-    expect(activePlayerDiv?.textContent).toContain(playerName);
+    expect(activePlayerDiv?.textContent).toContain(PLAYER_NAME);
   });
 
   test("should clear previous dice", () => {
@@ -81,10 +82,10 @@ describe("BrowserUI", () => {
 
       ui.addSubscriber("addPlayer", addPlayerCallback);
 
-      (gameDiv.querySelector("#player-name-input") as HTMLInputElement).value = "Bob";
+      (gameDiv.querySelector("#player-name-input") as HTMLInputElement).value = PLAYER_NAME;
       gameDiv.querySelector("#add-player-form")!.dispatchEvent(new Event("submit"));
 
-      expect(addPlayerCallback).toHaveBeenCalledWith("Bob");
+      expect(addPlayerCallback).toHaveBeenCalledWith(PLAYER_NAME);
     });
   });
 });
