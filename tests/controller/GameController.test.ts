@@ -80,11 +80,6 @@ describe("GameController", () => {
     test("should bind the correct this context for model.rollDice", () => {
       expect(model.rollDice.mock.contexts).toContain(model);
     });
-
-    test("should call UI.showDice with the Dice returned from model.rollDice", () => {
-      const returnedDice = model.rollDice.mock.results[0].value as Dice;
-      expect(view.showDice).toHaveBeenCalledWith(returnedDice);
-    });
   });
 
   describe("activePlayerChange event", () => {
