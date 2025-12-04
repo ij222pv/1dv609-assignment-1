@@ -118,15 +118,17 @@ describe("GameController", () => {
     });
 
     test("should call mocked player factory to create player", () => {
+      const player = new Player(PLAYER_NAME);
       const mockPlayerFactory = {
-        createPlayer: jest.fn((name: string) => new Player(name))
+        createPlayer: jest.fn((name: string) => player)
       };
       controller = new GameController(model, view, mockPlayerFactory);
       controller.start();
 
       view.dispatchEvent("addPlayer", PLAYER_NAME);
 
-      expect(mockPlayerFactory).toHaveBeenCalledWith(PLAYER_NAME);
+      expect(mockPlayerFactory.createPlayer).toHaveBeenCalledWith(PLAYER_NAME);
+      expect(model.addPlayer).toHaveBeenCalledWith(player);
     });
   });
 });
