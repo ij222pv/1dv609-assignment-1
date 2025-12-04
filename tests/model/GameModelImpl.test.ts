@@ -3,6 +3,7 @@ import GameModelImpl from "../../src/model/GameModelImpl";
 import D6DiceFactory from "../../src/model/D6DiceFactory";
 import Player from "../../src/model/Player";
 import type GameModel from "../../src/model/GameModel";
+import Dice from "../../src/model/Dice";
 
 describe("GameModelImpl", () => {
   let gameModel: GameModel;
@@ -208,6 +209,13 @@ describe("GameModelImpl", () => {
       gameModel.rollDice();
 
       expect(diceRolledCallback).toHaveBeenCalled();
+    });
+
+    test("should pass the rolled dice to the diceRolled event callback", () => {
+      gameModel.rollDice();
+
+      const calledWithDice = diceRolledCallback.mock.calls[0][0] as Dice;
+      expect(calledWithDice.getValue()).toBe(3);
     });
   });
 });
