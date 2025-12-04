@@ -20,10 +20,6 @@ export default class GameModelImpl implements GameModel {
   public rollDice(): Dice {
     const dice = this.diceFactory.createDice();
     this.handleRoll(dice);
-
-    if (dice.getValue() === 1) {
-      this.callListeners("clearTable");
-    }
     
     return dice;
   }
@@ -34,6 +30,7 @@ export default class GameModelImpl implements GameModel {
     if (dice.getValue() === 1) {
       this.goToNextPlayer();
       this.diceOnTable = [];
+      this.callListeners("clearTable");
     }
   }
 
