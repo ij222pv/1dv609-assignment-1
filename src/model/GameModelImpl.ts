@@ -17,11 +17,10 @@ export default class GameModelImpl implements GameModel {
 
   public constructor(private diceFactory: DiceFactory) {}
 
-  public rollDice(): Dice {
+  public rollDice(): void {
     const dice = this.diceFactory.createDice();
     this.handleRoll(dice);
     this.callListeners("diceRolled", dice);
-    return dice;
   }
 
   private handleRoll(dice: Dice): void {

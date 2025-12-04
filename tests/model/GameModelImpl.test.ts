@@ -13,8 +13,11 @@ describe("GameModelImpl", () => {
   });
 
   test("should return dice with value 3", () => {
-    const dice = gameModel.rollDice();
-    expect(dice.getValue()).toBe(3);
+    gameModel.addSubscriber("diceRolled", (dice: Dice) => {
+      expect(dice.getValue()).toBe(3);
+    });
+
+    gameModel.rollDice();
   });
 
   test("should add a player to the game", () => {
