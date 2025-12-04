@@ -20,7 +20,7 @@ export default class GameModelImpl implements GameModel {
   public rollDice(): Dice {
     const dice = this.diceFactory.createDice();
     this.handleRoll(dice);
-    this.callListeners("diceRolled");
+    this.callListeners("diceRolled", dice);
     return dice;
   }
 
@@ -40,8 +40,8 @@ export default class GameModelImpl implements GameModel {
     this.callListeners("activePlayerChange");
   }
 
-  private callListeners(eventName: string): void {
-    this.eventPublisher.notifySubscribers(eventName);
+  private callListeners(eventName: string, ...args: any[]): void {
+    this.eventPublisher.notifySubscribers(eventName, ...args);
   }
 
   public addPlayer(player: Player): void {
