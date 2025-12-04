@@ -137,9 +137,8 @@ describe("GameModelImpl", () => {
     });
   });
 
-  describe("event listeners", () => {
+  describe("activePlayerChange event", () => {
     let activePlayerChangeCallback: jest.Mock;
-
     beforeEach(() => {
       gameModel = createMockedGameModel([1], createPlayerArray(2));
       activePlayerChangeCallback = jest.fn();
@@ -167,10 +166,20 @@ describe("GameModelImpl", () => {
 
       expect(otherMockCallback).not.toHaveBeenCalled();
     });
+  });
+
+  describe("clearTable event", () => {
+    let clearTableCallback: jest.Mock;
+    beforeEach(() => {
+      gameModel = createMockedGameModel([4, 1], createPlayerArray(2));
+      clearTableCallback = jest.fn();
+
+      gameModel.addSubscriber("clearTable", clearTableCallback);
+    });
 
     test("should call clearTable event rolling a 1", () => {
-      const clearTableCallback = jest.fn();
-      gameModel.addSubscriber("clearTable", clearTableCallback);
+      // Roll a 4
+      gameModel.rollDice();
 
       // Roll a 1 to change active player
       gameModel.rollDice();
@@ -179,20 +188,23 @@ describe("GameModelImpl", () => {
     });
 
     test("should not call clearTable event rolling a non-1", () => {
-      const clearTableCallback = jest.fn();
       // Roll a non-1 to not change active player
-      gameModel = createMockedGameModel([4], createPlayerArray(2));
-      gameModel.addSubscriber("clearTable", clearTableCallback);
-
       gameModel.rollDice();
 
       expect(clearTableCallback).not.toHaveBeenCalled();
     });
+  });
 
-    test("should call diceRolled event when rolling a dice", () => {
-      const diceRolledCallback = jest.fn();
+  describe("diceRolled event", () => {
+    let diceRolledCallback: jest.Mock;
+    beforeEach(() => {
+      gameModel = createMockedGameModel([3], createPlayerArray(2));
+      diceRolledCallback = jest.fn();
+
       gameModel.addSubscriber("diceRolled", diceRolledCallback);
-
+    });
+    
+    test("should call diceRolled event when rolling a dice", () => {
       gameModel.rollDice();
 
       expect(diceRolledCallback).toHaveBeenCalled();
