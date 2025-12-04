@@ -19,8 +19,8 @@ export default class GameModelImpl implements GameModel {
 
   public rollDice(): void {
     const dice = this.diceFactory.createDice();
-    this.handleRoll(dice);
     this.callListeners("diceRolled", dice);
+    this.handleRoll(dice);
   }
 
   private handleRoll(dice: Dice): void {
