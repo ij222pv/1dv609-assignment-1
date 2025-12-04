@@ -138,55 +138,55 @@ describe("GameModelImpl", () => {
   });
 
   describe("event listeners", () => {
-    let mockListener: jest.Mock;
+    let activePlayerChangeCallback: jest.Mock;
 
     beforeEach(() => {
       gameModel = createMockedGameModel([1], createPlayerArray(2));
-      mockListener = jest.fn();
+      activePlayerChangeCallback = jest.fn();
 
-      gameModel.addSubscriber("activePlayerChange", mockListener);
+      gameModel.addSubscriber("activePlayerChange", activePlayerChangeCallback);
     });
 
     test("should call activePlayerChange event when changing active player", () => {
       // Roll a 1 to change active player
       gameModel.rollDice();
 
-      expect(mockListener).toHaveBeenCalled();
+      expect(activePlayerChangeCallback).toHaveBeenCalled();
     });
 
     test("should not call activePlayerChange unless player changes", () => {
-      expect(mockListener).not.toHaveBeenCalled();
+      expect(activePlayerChangeCallback).not.toHaveBeenCalled();
     });
 
     test("should not call other event when changing active player", () => {
-      const otherMockListener = jest.fn();
-      gameModel.addSubscriber("someOtherEvent", otherMockListener);
+      const otherMockCallback = jest.fn();
+      gameModel.addSubscriber("someOtherEvent", otherMockCallback);
 
       // Roll a 1 to change active player
       gameModel.rollDice();
 
-      expect(otherMockListener).not.toHaveBeenCalled();
+      expect(otherMockCallback).not.toHaveBeenCalled();
     });
 
     test("should call clearTable event rolling a 1", () => {
-      const clearTableListener = jest.fn();
-      gameModel.addSubscriber("clearTable", clearTableListener);
+      const clearTableCallback = jest.fn();
+      gameModel.addSubscriber("clearTable", clearTableCallback);
 
       // Roll a 1 to change active player
       gameModel.rollDice();
 
-      expect(clearTableListener).toHaveBeenCalled();
+      expect(clearTableCallback).toHaveBeenCalled();
     });
 
     test("should not call clearTable event rolling a non-1", () => {
-      const clearTableListener = jest.fn();
+      const clearTableCallback = jest.fn();
       // Roll a non-1 to not change active player
       gameModel = createMockedGameModel([4], createPlayerArray(2));
-      gameModel.addSubscriber("clearTable", clearTableListener);
+      gameModel.addSubscriber("clearTable", clearTableCallback);
 
       gameModel.rollDice();
 
-      expect(clearTableListener).not.toHaveBeenCalled();
+      expect(clearTableCallback).not.toHaveBeenCalled();
     });
   });
 });
