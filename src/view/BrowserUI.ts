@@ -16,6 +16,7 @@ export default class BrowserUI implements UI {
   private initGameContainer(): void {
     this.writeTemplateStringToContainer(gameTemplate);
     this.bindRollButton();
+    this.bindAddPlayerForm();
   }
 
   private writeTemplateStringToContainer(templateString: string): void {
@@ -28,8 +29,17 @@ export default class BrowserUI implements UI {
     rollButton.addEventListener("click", this.notifySubscribers.bind(this, "roll"));
   }
 
-  private notifySubscribers(eventName: string) {
-    this.eventPublisher.notifySubscribers(eventName);
+  private bindAddPlayerForm(): void {
+    const addPlayerForm = this.gameContainer.querySelector("#add-player-form") as HTMLFormElement;
+    addPlayerForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const formData = new FormData(addPlayerForm);
+      this.notifySubscribers("addPlayer", formData.get("name"));
+    });
+  }
+
+  private notifySubscribers(eventName: string, ...args: any[]): void {
+    this.eventPublisher.notifySubscribers(eventName, ...args);
   }
   
   public addSubscriber(eventName: string, callback: Function) {
