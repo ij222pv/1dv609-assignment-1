@@ -1,7 +1,6 @@
 import GameController from "./controller/GameController";
 import D6DiceFactory from "./model/D6DiceFactory";
 import GameModelImpl from "./model/GameModelImpl";
-import Player from "./model/Player";
 import StandardRandomProvider from "./model/StandardRandomProvider";
 import BrowserUI from "./view/BrowserUI";
 
@@ -12,9 +11,6 @@ if (!gameContainer) {
 
 const diceFactory = new D6DiceFactory(new StandardRandomProvider());
 const model = new GameModelImpl(diceFactory);
-// TODO: players should be able to enter their names
-model.addPlayer(new Player("Alice"));
-model.addPlayer(new Player("Bob"));
 const view = new BrowserUI(gameContainer);
 const controller = new GameController(model, view);
 
