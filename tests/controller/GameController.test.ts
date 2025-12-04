@@ -20,6 +20,14 @@ class FakeUI implements UI {
     }
   }
 
+  public callAddPlayerListeners(name: string): void {
+    const addPlayerListeners = this.addSubscriber.mock.calls.filter(l => l[0] === "addPlayer");
+    for (const listener of addPlayerListeners) {
+      // Call the callback
+      listener[1](PLAYER_NAME, name);
+    }
+  }
+
   public setActivePlayer = jest.fn((playerName: string): void => {});
   public clearDice = jest.fn((): void => {});
 }
@@ -31,7 +39,7 @@ class MockGameModel implements GameModel {
     });
   });
 
-  addPlayer(player: Player): void {}
+  addPlayer = jest.fn((player: Player): void => {});
   getPlayers(): Player[] { return []; }
   getActivePlayer(): Player { return new Player(PLAYER_NAME);}
   endTurn(): void {}
@@ -104,6 +112,16 @@ describe("GameController", () => {
       model.dispatchEvent("diceRolled");
 
       expect(view.showDice).toHaveBeenCalled();
+    });
+  });
+
+  describe("addPlayer event", () => {
+    test("should call model.addPlayer when addPlayer event is triggered", () => {
+      view.callAddPlayerListeners(PLAYER_NAME);
+
+      const namePassedToModel = model.addPlayer.mock.calls[0][0].getName();
+      expect(model.addPlayer).toHaveBeenCalled();
+      expect(namePassedToModel).toBe(PLAYER_NAME);
     });
   });
 });
