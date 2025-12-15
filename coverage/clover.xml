@@ -1,80 +1,107 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1764595832356" clover="3.2.0">
-  <project timestamp="1764595832356" name="All files">
-    <metrics statements="82" coveredstatements="82" conditionals="14" coveredconditionals="14" methods="34" coveredmethods="34" elements="130" coveredelements="130" complexity="0" loc="82" ncloc="82" packages="3" files="8" classes="8"/>
-    <package name="controller">
-      <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
-      <file name="GameController.ts" path="/home/isakw/documents/school/1dv609/assignments/assignment_1/src/controller/GameController.ts">
-        <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
-        <line num="4" count="4" type="stmt"/>
-        <line num="5" count="4" type="stmt"/>
-        <line num="8" count="4" type="stmt"/>
-        <line num="9" count="3" type="stmt"/>
-        <line num="10" count="3" type="stmt"/>
+<coverage generated="1765798590483" clover="3.2.0">
+  <project timestamp="1765798590483" name="All files">
+    <metrics statements="105" coveredstatements="105" conditionals="10" coveredconditionals="10" methods="45" coveredmethods="45" elements="160" coveredelements="160" complexity="0" loc="105" ncloc="105" packages="4" files="10" classes="10"/>
+    <package name="src">
+      <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
+      <file name="EventPublisherImpl.ts" path="/home/isakw/documents/school/1dv609/assignments/assignment_1/src/EventPublisherImpl.ts">
+        <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
+        <line num="4" count="51" type="stmt"/>
+        <line num="5" count="51" type="stmt"/>
+        <line num="8" count="14" type="stmt"/>
+        <line num="12" count="80" type="stmt"/>
+        <line num="13" count="26" type="stmt"/>
+        <line num="15" count="80" type="stmt"/>
+        <line num="16" count="10" type="stmt"/>
       </file>
     </package>
-    <package name="model">
-      <metrics statements="54" coveredstatements="54" conditionals="12" coveredconditionals="12" methods="23" coveredmethods="23"/>
+    <package name="src.controller">
+      <metrics statements="13" coveredstatements="13" conditionals="0" coveredconditionals="0" methods="7" coveredmethods="7"/>
+      <file name="GameController.ts" path="/home/isakw/documents/school/1dv609/assignments/assignment_1/src/controller/GameController.ts">
+        <metrics statements="13" coveredstatements="13" conditionals="0" coveredconditionals="0" methods="7" coveredmethods="7"/>
+        <line num="7" count="10" type="stmt"/>
+        <line num="8" count="10" type="stmt"/>
+        <line num="11" count="10" type="stmt"/>
+        <line num="12" count="2" type="stmt"/>
+        <line num="15" count="10" type="stmt"/>
+        <line num="16" count="1" type="stmt"/>
+        <line num="19" count="10" type="stmt"/>
+        <line num="20" count="1" type="stmt"/>
+        <line num="23" count="10" type="stmt"/>
+        <line num="24" count="1" type="stmt"/>
+        <line num="27" count="10" type="stmt"/>
+        <line num="28" count="3" type="stmt"/>
+        <line num="29" count="3" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.model">
+      <metrics statements="57" coveredstatements="57" conditionals="10" coveredconditionals="10" methods="24" coveredmethods="24"/>
       <file name="D6DiceFactory.ts" path="/home/isakw/documents/school/1dv609/assignments/assignment_1/src/model/D6DiceFactory.ts">
         <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
         <line num="1" count="1" type="stmt"/>
-        <line num="5" count="33" type="stmt"/>
-        <line num="6" count="33" type="stmt"/>
-        <line num="9" count="28" type="stmt"/>
+        <line num="5" count="43" type="stmt"/>
+        <line num="6" count="43" type="stmt"/>
+        <line num="9" count="34" type="stmt"/>
       </file>
       <file name="Dice.ts" path="/home/isakw/documents/school/1dv609/assignments/assignment_1/src/model/Dice.ts">
         <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
-        <line num="3" count="36" type="stmt"/>
-        <line num="8" count="36" type="stmt"/>
-        <line num="9" count="36" type="stmt"/>
-        <line num="13" count="38" type="stmt"/>
-        <line num="17" count="37" type="stmt"/>
+        <line num="3" count="42" type="stmt"/>
+        <line num="8" count="42" type="stmt"/>
+        <line num="9" count="42" type="stmt"/>
+        <line num="13" count="44" type="stmt"/>
+        <line num="17" count="45" type="stmt"/>
       </file>
       <file name="GameModelImpl.ts" path="/home/isakw/documents/school/1dv609/assignments/assignment_1/src/model/GameModelImpl.ts">
-        <metrics statements="30" coveredstatements="30" conditionals="6" coveredconditionals="6" methods="12" coveredmethods="12"/>
-        <line num="11" count="33" type="stmt"/>
-        <line num="12" count="33" type="stmt"/>
-        <line num="13" count="33" type="stmt"/>
-        <line num="14" count="33" type="stmt"/>
-        <line num="15" count="33" type="stmt"/>
-        <line num="17" count="33" type="stmt"/>
-        <line num="20" count="28" type="stmt"/>
-        <line num="21" count="28" type="stmt"/>
-        <line num="23" count="28" type="stmt"/>
-        <line num="27" count="28" type="stmt"/>
-        <line num="29" count="28" type="cond" truecount="2" falsecount="0"/>
-        <line num="30" count="18" type="stmt"/>
-        <line num="31" count="18" type="stmt"/>
-        <line num="36" count="21" type="stmt"/>
-        <line num="37" count="21" type="stmt"/>
-        <line num="38" count="21" type="stmt"/>
-        <line num="42" count="21" type="stmt"/>
-        <line num="43" count="3" type="cond" truecount="2" falsecount="0"/>
-        <line num="44" count="2" type="stmt"/>
-        <line num="50" count="35" type="stmt"/>
-        <line num="54" count="1" type="stmt"/>
-        <line num="58" count="37" type="cond" truecount="2" falsecount="0"/>
-        <line num="59" count="1" type="stmt"/>
-        <line num="62" count="36" type="stmt"/>
-        <line num="66" count="3" type="stmt"/>
+        <metrics statements="30" coveredstatements="30" conditionals="4" coveredconditionals="4" methods="12" coveredmethods="12"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="12" count="43" type="stmt"/>
+        <line num="13" count="43" type="stmt"/>
+        <line num="14" count="43" type="stmt"/>
+        <line num="15" count="43" type="stmt"/>
+        <line num="16" count="43" type="stmt"/>
+        <line num="18" count="43" type="stmt"/>
+        <line num="21" count="34" type="stmt"/>
+        <line num="22" count="34" type="stmt"/>
+        <line num="23" count="34" type="stmt"/>
+        <line num="27" count="34" type="stmt"/>
+        <line num="29" count="34" type="cond" truecount="2" falsecount="0"/>
+        <line num="30" count="20" type="stmt"/>
+        <line num="31" count="20" type="stmt"/>
+        <line num="32" count="20" type="stmt"/>
+        <line num="37" count="23" type="stmt"/>
+        <line num="38" count="23" type="stmt"/>
+        <line num="39" count="23" type="stmt"/>
+        <line num="43" count="77" type="stmt"/>
+        <line num="47" count="45" type="stmt"/>
+        <line num="51" count="1" type="stmt"/>
+        <line num="55" count="37" type="cond" truecount="2" falsecount="0"/>
+        <line num="56" count="1" type="stmt"/>
+        <line num="59" count="36" type="stmt"/>
+        <line num="63" count="3" type="stmt"/>
+        <line num="64" count="3" type="stmt"/>
+        <line num="65" count="3" type="stmt"/>
         <line num="67" count="3" type="stmt"/>
-        <line num="68" count="3" type="stmt"/>
-        <line num="70" count="3" type="stmt"/>
-        <line num="74" count="4" type="stmt"/>
-        <line num="78" count="4" type="stmt"/>
+        <line num="71" count="4" type="stmt"/>
+        <line num="75" count="11" type="stmt"/>
       </file>
       <file name="Player.ts" path="/home/isakw/documents/school/1dv609/assignments/assignment_1/src/model/Player.ts">
         <metrics statements="10" coveredstatements="10" conditionals="4" coveredconditionals="4" methods="4" coveredmethods="4"/>
-        <line num="1" count="24" type="stmt"/>
-        <line num="2" count="24" type="stmt"/>
-        <line num="4" count="24" type="stmt"/>
-        <line num="5" count="24" type="cond" truecount="2" falsecount="0"/>
+        <line num="1" count="39" type="stmt"/>
+        <line num="2" count="39" type="stmt"/>
+        <line num="4" count="39" type="stmt"/>
+        <line num="5" count="39" type="cond" truecount="2" falsecount="0"/>
         <line num="6" count="1" type="stmt"/>
-        <line num="9" count="23" type="cond" truecount="2" falsecount="0"/>
+        <line num="9" count="38" type="cond" truecount="2" falsecount="0"/>
         <line num="10" count="1" type="stmt"/>
-        <line num="15" count="1" type="stmt"/>
+        <line num="15" count="4" type="stmt"/>
         <line num="19" count="3" type="stmt"/>
         <line num="23" count="2" type="stmt"/>
+      </file>
+      <file name="PlayerFactory.ts" path="/home/isakw/documents/school/1dv609/assignments/assignment_1/src/model/PlayerFactory.ts">
+        <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="2" count="2" type="stmt"/>
+        <line num="4" count="10" type="stmt"/>
+        <line num="6" count="3" type="stmt"/>
       </file>
       <file name="StandardRandomProvider.ts" path="/home/isakw/documents/school/1dv609/assignments/assignment_1/src/model/StandardRandomProvider.ts">
         <metrics statements="5" coveredstatements="5" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2"/>
@@ -85,36 +112,41 @@
         <line num="12" count="2" type="stmt"/>
       </file>
     </package>
-    <package name="view">
-      <metrics statements="23" coveredstatements="23" conditionals="2" coveredconditionals="2" methods="8" coveredmethods="8"/>
+    <package name="src.view">
+      <metrics statements="28" coveredstatements="28" conditionals="0" coveredconditionals="0" methods="11" coveredmethods="11"/>
       <file name="BrowserUI.ts" path="/home/isakw/documents/school/1dv609/assignments/assignment_1/src/view/BrowserUI.ts">
-        <metrics statements="22" coveredstatements="22" conditionals="2" coveredconditionals="2" methods="8" coveredmethods="8"/>
-        <line num="3" count="1" type="stmt"/>
-        <line num="10" count="6" type="stmt"/>
-        <line num="12" count="6" type="stmt"/>
-        <line num="13" count="1" type="stmt"/>
-        <line num="16" count="6" type="stmt"/>
-        <line num="17" count="6" type="stmt"/>
-        <line num="21" count="6" type="stmt"/>
-        <line num="22" count="6" type="stmt"/>
-        <line num="27" count="6" type="stmt"/>
-        <line num="31" count="6" type="stmt"/>
-        <line num="32" count="6" type="stmt"/>
-        <line num="36" count="2" type="stmt"/>
-        <line num="37" count="2" type="cond" truecount="2" falsecount="0"/>
-        <line num="38" count="1" type="stmt"/>
-        <line num="41" count="1" type="stmt"/>
-        <line num="46" count="2" type="stmt"/>
-        <line num="50" count="2" type="stmt"/>
-        <line num="51" count="2" type="stmt"/>
-        <line num="52" count="2" type="stmt"/>
-        <line num="53" count="2" type="stmt"/>
+        <metrics statements="27" coveredstatements="27" conditionals="0" coveredconditionals="0" methods="11" coveredmethods="11"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="6" count="8" type="stmt"/>
+        <line num="8" count="8" type="stmt"/>
+        <line num="9" count="1" type="stmt"/>
+        <line num="12" count="8" type="stmt"/>
+        <line num="13" count="8" type="stmt"/>
+        <line num="17" count="8" type="stmt"/>
+        <line num="18" count="8" type="stmt"/>
+        <line num="19" count="8" type="stmt"/>
+        <line num="24" count="8" type="stmt"/>
+        <line num="28" count="8" type="stmt"/>
+        <line num="29" count="8" type="stmt"/>
+        <line num="33" count="8" type="stmt"/>
+        <line num="34" count="8" type="stmt"/>
+        <line num="35" count="1" type="stmt"/>
+        <line num="36" count="1" type="stmt"/>
+        <line num="37" count="1" type="stmt"/>
+        <line num="42" count="3" type="stmt"/>
+        <line num="46" count="3" type="stmt"/>
+        <line num="50" count="3" type="stmt"/>
+        <line num="51" count="3" type="stmt"/>
+        <line num="52" count="3" type="stmt"/>
+        <line num="53" count="3" type="stmt"/>
         <line num="57" count="1" type="stmt"/>
         <line num="58" count="1" type="stmt"/>
+        <line num="62" count="1" type="stmt"/>
       </file>
       <file name="gameTemplate.html.ts" path="/home/isakw/documents/school/1dv609/assignments/assignment_1/src/view/gameTemplate.html.ts">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="1" count="6" type="stmt"/>
+        <line num="1" count="8" type="stmt"/>
       </file>
     </package>
   </project>
